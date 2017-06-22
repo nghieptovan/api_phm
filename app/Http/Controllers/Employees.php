@@ -49,7 +49,18 @@ class Employees extends Controller {
         $employee->position = $request->input('position');
         $employee->save();
 
-        return 'Employee record successfully created with id ' . $employee->id;
+        if($employee !== NULL){
+          return response()->json([
+              'message' => 'Nhân viên tìm thấy',
+              'data' => $employee,
+              'code' => 200
+          ]);
+        }else{
+          return response()->json([
+              'message' => 'Không thể thêm nhân viên',
+              'code' => 201
+          ]);
+        }
     }
 
     /**
@@ -59,7 +70,19 @@ class Employees extends Controller {
      * @return Response
      */
     public function show($id) {
-        return Employee::find($id);
+        $employee = Employee::find($id);
+        if($employee !== NULL){
+          return response()->json([
+              'message' => 'Nhân viên tìm thấy',
+              'data' => $employee,
+              'code' => 200
+          ]);
+        }else{
+          return response()->json([
+              'message' => 'Không tìm thấy nhân viên nào',
+              'code' => 201
+          ]);
+        }
     }
 
     /**
@@ -76,8 +99,11 @@ class Employees extends Controller {
         $employee->password = $request->input('password');
         $employee->position = $request->input('position');
         $employee->save();
-
-        return "Sucess updating user #" . $employee->id;
+        return response()->json([
+            'message' => 'Cập nhật nhân viên thành công.',
+            'data' => $employee,
+            'code' => 200
+        ]);
     }
 
     /**
@@ -86,11 +112,14 @@ class Employees extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy(Request $request) {
-        $employee = Employee::find($request->input('id'));
-
+    public function destroy($id) {
+        $employee = Employee::find($id);
+        //print_r($employee);
         $employee->delete();
-
-        return "Employee record successfully deleted #" . $request->input('id');
+        //
+        return response()->json([
+            'message' => 'Xóa nhân viên thành công.',
+            'code' => 200
+        ]);
     }
 }
