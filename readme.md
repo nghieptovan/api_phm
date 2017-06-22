@@ -1,3 +1,17 @@
+#before Run
+  duplicate .env.example and change name to .env
+  edit
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=api_phm            
+    DB_USERNAME=root
+    DB_PASSWORD=
+#run:
+  composer install
+#it could be that you're missing the OpenSSL extension. Also, do you have the key set in .env file?
+#Try running:
+  php artisan key:generate
+
 ##create database
 CREATE DATABASE `api_phm`;
 php artisan migrate

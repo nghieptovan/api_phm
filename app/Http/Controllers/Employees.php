@@ -19,13 +19,13 @@ class Employees extends Controller {
             $employees = Employee::orderBy('id', 'asc')->get();
             if(count($employees) > 0){
               return response()->json([
-                  'message' => 'Nhân viên tìm thấy',
+                  'message' => 'Employees was found',
                   'data' => $employees,
                   'code' => 200
               ]);
             }else{
               return response()->json([
-                  'message' => 'Không tìm thấy nhân viên nào',
+                  'message' => 'Data was not found',
                   'code' => 201
               ]);
             }
@@ -51,13 +51,13 @@ class Employees extends Controller {
 
         if($employee !== NULL){
           return response()->json([
-              'message' => 'Nhân viên tìm thấy',
+              'message' => 'Employee was created',
               'data' => $employee,
               'code' => 200
           ]);
         }else{
           return response()->json([
-              'message' => 'Không thể thêm nhân viên',
+              'message' => 'Could not create employee',
               'code' => 201
           ]);
         }
@@ -73,13 +73,13 @@ class Employees extends Controller {
         $employee = Employee::find($id);
         if($employee !== NULL){
           return response()->json([
-              'message' => 'Nhân viên tìm thấy',
+              'message' => 'Employee was found',
               'data' => $employee,
               'code' => 200
           ]);
         }else{
           return response()->json([
-              'message' => 'Không tìm thấy nhân viên nào',
+              'message' => 'Employee was not found',
               'code' => 201
           ]);
         }
@@ -100,7 +100,7 @@ class Employees extends Controller {
         $employee->position = $request->input('position');
         $employee->save();
         return response()->json([
-            'message' => 'Cập nhật nhân viên thành công.',
+            'message' => 'Employee was updated.',
             'data' => $employee,
             'code' => 200
         ]);
@@ -118,7 +118,7 @@ class Employees extends Controller {
         $employee->delete();
         //
         return response()->json([
-            'message' => 'Xóa nhân viên thành công.',
+            'message' => 'Employee deleted success.',
             'code' => 200
         ]);
     }
