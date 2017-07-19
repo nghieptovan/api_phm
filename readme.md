@@ -23,3 +23,7 @@ Help:
 # create an Eloquent ORM model for our REST API
   php artisan make:model Employee
   php artisan migrate:refresh --seed
+#add new migrate
+  php artisan make:migration create_users_table --create=users
+#edit migrate
+  php artisan make:migration add_fields_to_employees_table --table=employees
