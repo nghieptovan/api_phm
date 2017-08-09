@@ -16,6 +16,13 @@ class CreateMedicineTable extends Migration
             $table->increments('id');
             $table->string('mathuoc')->unique();
             $table->string('tenthuoc');
+            $table->string('tenthuoc_toa');
+            $table->integer('quicachsudung');
+            $table->integer('phanloai');
+            $table->integer('soluong');
+            $table->integer('dongia');
+            $table->string('nhandang');
+            $table->timestamp('ngaynhap');
             $table->timestamps();
         });
     }

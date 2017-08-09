@@ -27,3 +27,26 @@ Help:
   php artisan make:migration create_users_table --create=users
 #edit migrate
   php artisan make:migration add_fields_to_employees_table --table=employees
+
+
+##
+##POSTMAN
+##
+
+#get medicine
+http://localhost:8000/api/v1/medicine/{id}
+method: GET
+
+#create medicine
+http://localhost:8000/api/v1/medicine/
+method: POST
+{
+	"mathuoc": "mathuoc1",
+	"tenthuoc": "tenthuoc1",
+	"tenthuoc_toa": "tenthuoc_toa1",
+	"quicachsudung": "1",
+	"phanloai": "2",
+	"soluong": "1000",
+	"dongia": "2500",
+	"nhandang": "nhandang1"
+}
