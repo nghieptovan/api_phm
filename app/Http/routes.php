@@ -25,12 +25,12 @@ Route::post('/api/v1/employees/delete/{id}', 'Employees@destroy');
 Route::get('/api/v1/diagnosis/{id?}', 'Diagnosis@index');
 Route::post('/api/v1/diagnosis', 'Diagnosis@store');
 Route::post('/api/v1/diagnosis/{id}', 'Diagnosis@update');
-Route::delete('/api/v1/diagnosis/delete/{id}', 'Diagnosis@destroy');
+Route::post('/api/v1/diagnosis/delete/{id}', 'Diagnosis@destroy');
 #patients
-Route::get('/api/v1/patient/{id?}', 'Patient@index');
-Route::post('/api/v1/patient', 'Patient@store');
-Route::post('/api/v1/patient/{id}', 'Patient@update');
-Route::delete('/api/v1/patient/delete.{id}', 'Patient@destroy');
+Route::get('/api/v1/patients/{id?}', 'Patients@index');
+Route::post('/api/v1/patients', 'Patients@store');
+Route::post('/api/v1/patients/{id}', 'Patients@update');
+Route::post('/api/v1/patients/delete/{id}', 'Patients@destroy');
 #medicines
 Route::get('/api/v1/medicine/{id?}', 'Medicines@index');
 Route::post('/api/v1/medicine', 'Medicines@store');

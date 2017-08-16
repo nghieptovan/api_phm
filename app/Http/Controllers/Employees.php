@@ -16,7 +16,7 @@ class Employees extends Controller {
      */
     public function index($id = null) {
         if ($id == null) {
-            $employees = Employee::orderBy('id', 'asc')->get();
+            $employees = Employee::with('Role')->get();
             if(count($employees) > 0){
               return response()->json([
                   'message' => 'Employees was found',
@@ -47,6 +47,7 @@ class Employees extends Controller {
         $employee->username = $request->input('username');
         $employee->password = $request->input('password');
         $employee->position = $request->input('position');
+        $employee->role_id = $request->input('role_id');
         $employee->save();
 
         if($employee !== NULL){
@@ -98,6 +99,7 @@ class Employees extends Controller {
         $employee->username = $request->input('username');
         $employee->password = $request->input('password');
         $employee->position = $request->input('position');
+        $employee->role_id = $request->input('role_id');
         $employee->save();
         return response()->json([
             'message' => 'Employee was updated.',

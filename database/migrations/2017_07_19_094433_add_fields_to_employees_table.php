@@ -17,6 +17,7 @@ class AddFieldsToEmployeesTable extends Migration
             $table->string('madangnhap');
             $table->string('fullname');
             $table->string('image');
+            $table->integer('role_id');
         });
     }
 
