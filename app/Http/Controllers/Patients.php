@@ -102,16 +102,25 @@ class Patients extends Controller
      */
     public function update(Request $request, $id) {
         $patient = Patient::find($id);
+        if(isset($request->hoten))
+          $patient->hoten = $request->input('hoten');
+        if(isset($request->gioitinh))
+          $patient->gioitinh = $request->input('gioitinh');
+        if(isset($request->cannang))
+          $patient->cannang = $request->input('cannang');
+        if(isset($request->ngaysinh))
+          $patient->ngaysinh = $request->input('ngaysinh');
+        if(isset($request->diachi))
+          $patient->diachi = $request->input('diachi');
+        if(isset($request->sodienthoai))
+          $patient->sodienthoai = $request->input('sodienthoai');
+        if(isset($request->tiencan))
+          $patient->tiencan = $request->input('tiencan');
+        if(isset($request->employee_id))
+          $patient->employee_id = $request->input('employee_id');
+        if(isset($request->trangthai))
+          $patient->trangthai = $request->input('trangthai');
 
-        $patient->mabenhnhan = $request->input('mabenhnhan');
-        $patient->hoten = $request->input('hoten');
-        $patient->gioitinh = $request->input('gioitinh');
-        $patient->cannang = $request->input('cannang');
-        $patient->ngaysinh = $request->input('ngaysinh');
-        $patient->diachi = $request->input('diachi');
-        $patient->sodienthoai = $request->input('sodienthoai');
-        $patient->tiencan = $request->input('tiencan');
-        $patient->employee_id = $request->input('employee_id');
         $patient->save();
 
         return response()->json([

@@ -71,7 +71,7 @@ class Employees extends Controller {
      * @return Response
      */
     public function show($id) {
-        $employee = Employee::find($id);
+        $employee = Employee::with('Patient')->with('Role')->find($id);
         if($employee !== NULL){
           return response()->json([
               'message' => 'Employee was found',
@@ -95,11 +95,14 @@ class Employees extends Controller {
      */
     public function update(Request $request, $id) {
         $employee = Employee::find($id);
-
-        $employee->username = $request->input('username');
-        $employee->password = $request->input('password');
-        $employee->position = $request->input('position');
-        $employee->role_id = $request->input('role_id');
+        if(isset($request->username))
+          $employee->username = $request->input('username');
+        if(isset($request->password))
+          $employee->password = $request->input('password');
+        if(isset($request->position))
+          $employee->position = $request->input('position');
+        if(isset($request->role_id))
+          $employee->role_id = $request->input('role_id');
         $employee->save();
         return response()->json([
             'message' => 'Employee was updated.',

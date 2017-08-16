@@ -9,7 +9,7 @@ class Employee extends Model
     //
     protected $table='employees';
     protected $fillable = array('id', 'username', 'position', 'madangnhap', 'fullname', 'image');
-
+    protected $hidden = array('password', 'role_id', 'position');
 
     public function Role(){
         return $this->belongsTo('App\Role', 'role_id');
@@ -17,7 +17,7 @@ class Employee extends Model
 
     public function Patient()
     {
-        return $this->hasMany('App\Patient', 'id');
+        return $this->hasMany('App\Patient', 'employee_id');
     }
 
 
