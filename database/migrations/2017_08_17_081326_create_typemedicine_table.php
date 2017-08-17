@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFlagToPatientTable extends Migration
+class CreateTypemedicineTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class AddFlagToPatientTable extends Migration
      */
     public function up()
     {
-        Schema::table('patient', function (Blueprint $table) {
-
-            //
-            $table->integer('status_id')->default(1);
+        Schema::create('typemedicine', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('tenloai');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +26,6 @@ class AddFlagToPatientTable extends Migration
      */
     public function down()
     {
-        Schema::table('patient', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('typemedicine');
     }
 }

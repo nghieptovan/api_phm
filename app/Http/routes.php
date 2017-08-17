@@ -21,21 +21,36 @@ Route::get('/api/v1/employees/{id?}', 'Employees@index');
 Route::post('/api/v1/employees', 'Employees@store');
 Route::post('/api/v1/employees/{id}', 'Employees@update');
 Route::post('/api/v1/employees/delete/{id}', 'Employees@destroy');
+
+
 #diagnosis
-Route::get('/api/v1/diagnosis/{id?}', 'Diagnosis@index');
-Route::post('/api/v1/diagnosis', 'Diagnosis@store');
-Route::post('/api/v1/diagnosis/{id}', 'Diagnosis@update');
-Route::post('/api/v1/diagnosis/delete/{id}', 'Diagnosis@destroy');
+Route::get('/api/v1/diagnosis/{id?}', 'Diagnosises@index');
+Route::post('/api/v1/diagnosis', 'Diagnosises@store');
+Route::post('/api/v1/diagnosis/{id}', 'Diagnosises@update');
+Route::post('/api/v1/diagnosis/delete/{id}', 'Diagnosises@destroy');
+
+
 #patients
 Route::get('/api/v1/patients/{id?}', 'Patients@index');
 Route::post('/api/v1/patients', 'Patients@store');
 Route::post('/api/v1/patients/{id}', 'Patients@update');
 Route::post('/api/v1/patients/delete/{id}', 'Patients@destroy');
+
+
 #medicines
 Route::get('/api/v1/medicine/{id?}', 'Medicines@index');
 Route::post('/api/v1/medicine', 'Medicines@store');
 Route::post('/api/v1/medicine/{id}', 'Medicines@update');
-Route::delete('/api/v1/medicine/delete.{id}', 'Medicines@destroy');
+Route::post('/api/v1/medicine/delete.{id}', 'Medicines@destroy');
+
+
+#status
+Route::get('/api/v1/status/{id?}', 'Statuses@index');
+Route::post('/api/v1/status', 'Statuses@store');
+Route::post('/api/v1/status/{id}', 'Statuses@update');
+Route::post('/api/v1/status/delete.{id}', 'Statuses@destroy');
+
+
 
 Route::auth();
 

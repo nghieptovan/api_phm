@@ -17,7 +17,7 @@ class Patients extends Controller
      */
     public function index($id = null) {
         if ($id == null) {
-            $patients = Patient::with('Employee')->orderBy('id', 'asc')->get();
+            $patients = Patient::with('Employee', 'Trangthai')->orderBy('id', 'asc')->get();
             if(count($patients) > 0){
               return response()->json([
                   'message' => 'Patients was found',
@@ -54,6 +54,7 @@ class Patients extends Controller
         $patient->sodienthoai = $request->input('sodienthoai');
         $patient->tiencan = $request->input('tiencan');
         $patient->employee_id = $request->input('employee_id');
+        $patient->status_id = 1;
 
         $patient->save();
 
@@ -118,9 +119,8 @@ class Patients extends Controller
           $patient->tiencan = $request->input('tiencan');
         if(isset($request->employee_id))
           $patient->employee_id = $request->input('employee_id');
-        if(isset($request->trangthai))
-          $patient->trangthai = $request->input('trangthai');
-
+        if(isset($request->status_id))
+          $patient->status_id = $request->input('status_id');
         $patient->save();
 
         return response()->json([

@@ -10,7 +10,7 @@ class Medicines extends Controller {
 
     public function index($id = null) {
         if ($id == null) {
-            $medicines = Medicine::orderBy('id', 'asc')->get();
+            $medicines = Medicine::with('phanloai', 'quycachsudung')->orderBy('id', 'asc')->get();
             if(count($medicines) > 0){
               return response()->json([
                   'message' => 'Medicines was found',
@@ -41,8 +41,8 @@ class Medicines extends Controller {
         $medicine->mathuoc = $request->input('mathuoc');
         $medicine->tenthuoc = $request->input('tenthuoc');
         $medicine->tenthuoc_toa = $request->input('tenthuoc_toa');
-        $medicine->quicachsudung = $request->input('quicachsudung');
-        $medicine->phanloai = $request->input('phanloai');
+        $medicine->typemedicine_id = $request->input('typemedicine_id');
+        $medicine->usingmedicine_id = $request->input('usingmedicine_id');
         $medicine->soluong = $request->input('soluong');
         $medicine->dongia = $request->input('dongia');
         $medicine->nhandang = $request->input('nhandang');
@@ -64,15 +64,32 @@ class Medicines extends Controller {
 
     public function update(Request $request, $id) {
         $medicine = Medicine::find($id);
+        if(isset($request->mathuoc))
+          $medicine->mathuoc = $request->input('mathuoc');
 
-        $medicine->mathuoc = $request->input('mathuoc');
-        $medicine->tenthuoc = $request->input('tenthuoc');
-        $medicine->tenthuoc_toa = $request->input('tenthuoc_toa');
-        $medicine->quicachsudung = $request->input('quicachsudung');
-        $medicine->phanloai = $request->input('phanloai');
-        $medicine->soluong = $request->input('soluong');
-        $medicine->dongia = $request->input('dongia');
-        $medicine->nhandang = $request->input('nhandang');
+        if(isset($request->tenthuoc))
+          $medicine->tenthuoc = $request->input('tenthuoc');
+
+        if(isset($request->tenthuoc_toa))
+          $medicine->tenthuoc_toa = $request->input('tenthuoc_toa');
+
+        if(isset($request->typemedicine_id))
+          $medicine->typemedicine_id = $request->input('typemedicine_id');
+
+        if(isset($request->usingmedicine_id))
+          $medicine->usingmedicine_id = $request->input('usingmedicine_id');
+
+        if(isset($request->soluong))
+          $medicine->soluong = $request->input('soluong');
+
+        if(isset($request->dongia))
+          $medicine->dongia = $request->input('dongia');
+
+        if(isset($request->nhandang))
+          $medicine->nhandang = $request->input('nhandang');
+
+        if(isset($request->soluongxuat))
+          $medicine->soluongxuat = $request->input('soluongxuat');
 
         $medicine->save();
         return response()->json([
