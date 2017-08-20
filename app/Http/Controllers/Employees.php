@@ -41,30 +41,40 @@ class Employees extends Controller {
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request) {
+    public function store(Request $request) {        
 
-        $employee = new Employee;
-
-        $employee->username = $request->input('username');
-        $employee->password = $request->input('password');
-        $employee->fullname = $request->input('fullname');
-        $employee->role_id = $request->input('role_id');
-        $employee->image = $request->input('image');
-        $employee->stringlogin = $request->input('stringlogin');                    
-        $employee->save();
-
-        if($employee !== NULL){
+        $checkEmployee = Employee::where('username', $request->input('username'))->take(1)->get();
+        if(count($checkEmployee) > 0){
           return response()->json([
-              'message' => 'Employee was created',
-              'data' => $employee,
-              'code' => 200
-          ]);
-        }else{
-          return response()->json([
-              'message' => 'Could not create employee',
+              'message' => 'Employee was exist',
               'code' => 201
           ]);
+
+        }else{
+          $employee = new Employee;
+          $employee->username = $request->input('username');
+          $employee->password = $request->input('password');
+          $employee->fullname = $request->input('fullname');
+          $employee->role_id = $request->input('role_id');
+          $employee->image = $request->input('image');
+          $employee->stringlogin = $request->input('stringlogin');                    
+          $employee->save();
+
+          if($employee !== NULL){
+            return response()->json([
+                'message' => 'Employee was created',
+                'data' => $employee,
+                'code' => 200
+            ]);
+          }else{
+            return response()->json([
+                'message' => 'Could not create employee',
+                'code' => 201
+            ]);
+          }
         }
+
+        
     }
 
     /**
@@ -131,7 +141,6 @@ class Employees extends Controller {
 
       //$employee = Employee::where('username', $username)->get();
       $employees = Employee::where('username', $username)->take(1)->get();
-      echo count($employees);
       if(count($employees) > 0){
         foreach ($employees as $employee)
         {
