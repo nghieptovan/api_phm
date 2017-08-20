@@ -42,12 +42,15 @@ class Employees extends Controller {
      * @return Response
      */
     public function store(Request $request) {
+
         $employee = new Employee;
 
         $employee->username = $request->input('username');
         $employee->password = $request->input('password');
-        $employee->position = $request->input('position');
+        $employee->fullname = $request->input('fullname');
         $employee->role_id = $request->input('role_id');
+        $employee->image = $request->input('image');
+        $employee->stringlogin = $request->input('stringlogin');                    
         $employee->save();
 
         if($employee !== NULL){
@@ -71,7 +74,7 @@ class Employees extends Controller {
      * @return Response
      */
     public function show($id) {
-        $employee = Employee::with('Patient')->with('Role')->find($id);
+        $employee = Employee::with('Role')->find($id);
         if($employee !== NULL){
           return response()->json([
               'message' => 'Employee was found',
@@ -97,18 +100,64 @@ class Employees extends Controller {
         $employee = Employee::find($id);
         if(isset($request->username))
           $employee->username = $request->input('username');
+
         if(isset($request->password))
           $employee->password = $request->input('password');
-        if(isset($request->position))
-          $employee->position = $request->input('position');
+
         if(isset($request->role_id))
           $employee->role_id = $request->input('role_id');
+
+        if(isset($request->fullname))
+          $employee->fullname = $request->input('fullname');
+
+        if(isset($request->stringlogin))
+          $employee->stringlogin = $request->input('stringlogin');
+
+        if(isset($request->image))
+          $employee->image = $request->input('image');
+
+
         $employee->save();
         return response()->json([
             'message' => 'Employee was updated.',
             'data' => $employee,
             'code' => 200
         ]);
+    }
+    public function login(Request $request) {
+
+      $username = $request->input('username');
+      $password = $request->input('password');
+
+      //$employee = Employee::where('username', $username)->get();
+      $employees = Employee::where('username', $username)->take(1)->get();
+      echo count($employees);
+      if(count($employees) > 0){
+        foreach ($employees as $employee)
+        {
+            $employeeReturn = $employee;
+        }
+        if($employeeReturn->password == $password){
+          return response()->json([
+                'message' => 'Login success',
+                'data' => $employeeReturn,
+                'code' => 200
+            ]);       
+            
+          }else{
+            return response()->json([
+                'message' => 'Wrong password',
+                'code' => 202
+            ]);
+          }
+      }else{
+        return response()->json([
+                'message' => 'Wrong username',
+                'code' => 203
+            ]);
+      }
+      
+     
     }
 
     /**

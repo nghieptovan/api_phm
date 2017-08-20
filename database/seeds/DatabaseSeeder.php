@@ -27,11 +27,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(EmployeeTableSeeder::class);
-        $this->call(PatientTableSeeder::class);
         $this->call(RoleTableSeeder::class);
-        $this->call(StatusTableSeeder::class);
-        $this->call(TypeMedicineTableSeeder::class);
-        $this->call(UsingMedicineTableSeeder::class);
+        
+        // $this->call(PatientTableSeeder::class);
+        
+        // $this->call(StatusTableSeeder::class);
+        // $this->call(TypeMedicineTableSeeder::class);
+        // $this->call(UsingMedicineTableSeeder::class);
 
     }
 }

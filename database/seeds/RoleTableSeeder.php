@@ -13,20 +13,24 @@ class RoleTableSeeder extends Seeder
     {
         //
         DB::table('role')->insert([
-            'role_id' => '1',
-            'role_name' => 'admin',
+            'id' => '1',
+            'name' => 'admin',
+            'code' => 'adm',
         ]);
         DB::table('role')->insert([
-            'role_id' => '2',
-            'role_name' => 'tieptan',
+            'id' => '2',
+            'name' => 'Tiếp tân',
+            'code' => 'tt',
         ]);
         DB::table('role')->insert([
-            'role_id' => '3',
-            'role_name' => 'bacsi',
+            'id' => '3',
+            'name' => 'Bác sỹ',
+            'code' => 'bs',
         ]);
         DB::table('role')->insert([
-            'role_id' => '4',
-            'role_name' => 'phatthuoc',
+           'id' => '4',
+            'name' => 'Phát thuốc',
+            'code' => 'pt',
         ]);
     }
 }

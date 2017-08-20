@@ -14,14 +14,13 @@ class EmployeeTableSeeder extends Seeder
         //
         DB::table('employees')->insert([
             'username' => 'admin',
-            'password' => str_random(10),
-            'position' => 'admin',
+            'password' => '123456',
             'role_id' => 1,
         ]);
         DB::table('employees')->insert([
             'username' => 'nhanvien',
             'password' => '123456',
-            'role_id' => 1,
+            'role_id' => 2,
         ]);
     }
 }

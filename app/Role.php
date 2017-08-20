@@ -8,10 +8,9 @@ class Role extends Model
 {
     //
     protected $table='role';
-    protected $fillable = array('role_id', 'role_name');
-    protected $hidden = array('id','created_at', 'updated_at' );
+    protected $fillable = array('name', 'code');
      public function Employee()
      {
-         return $this->hasMany('App\Employee', 'role_id');
+         return $this->hasMany('App\Employee');
      }
 }

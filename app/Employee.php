@@ -8,8 +8,8 @@ class Employee extends Model
 {
     //
     protected $table='employees';
-    protected $fillable = array('id', 'username', 'position', 'madangnhap', 'fullname', 'image');
-    protected $hidden = array('password', 'role_id', 'position');
+    protected $fillable = array('id', 'username', 'password', 'role_id', 'stringlogin', 'fullname', 'image');
+    //protected $hidden = array('password');
 
     public function Role(){
         return $this->belongsTo('App\Role', 'role_id');

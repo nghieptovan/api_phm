@@ -17,7 +17,10 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->string('username')->unique();
             $table->string('password');
-            $table->string('position');
+            $table->string('fullname');            
+            $table->string('stringlogin');
+            $table->integer('role_id');
+            $table->string('image');          
             $table->timestamps();
         });
     }
