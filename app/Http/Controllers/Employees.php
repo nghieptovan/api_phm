@@ -160,14 +160,14 @@ class Employees extends Controller {
           }else{
             return response()->json([
                 'message' => 'Wrong password',
-                'data' => 'true'
+                'data' => 'true',
                 'code' => 202
             ]);
           }
       }else{
         return response()->json([
                 'message' => 'Wrong username',
-                'data' => 'true'
+                'data' => 'true',
                 'code' => 203
             ]);
       }
@@ -187,7 +187,7 @@ class Employees extends Controller {
         //
         return response()->json([
             'message' => 'Employee deleted success.',
-            'data' => 'true'
+            'data' => 'true',
             'code' => 200
         ]);
     }

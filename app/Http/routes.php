@@ -20,9 +20,6 @@ Route::get('/', function () {
 Route::get('/api/v1/employees/{id?}', 'Employees@index');
 Route::post('/api/v1/employees', 'Employees@store');
 Route::post('/api/v1/employees/login', 'Employees@login');
-// Route::post('/api/v1/employees/login', [
-//     'as' => 'profile', 'uses' => 'EmployeesController@login'
-// ]);
 Route::post('/api/v1/employees/{id}', 'Employees@update');
 Route::post('/api/v1/employees/delete/{id}', 'Employees@destroy');
 
