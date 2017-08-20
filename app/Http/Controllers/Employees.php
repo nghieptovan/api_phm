@@ -26,6 +26,7 @@ class Employees extends Controller {
             }else{
               return response()->json([
                   'message' => 'Data was not found',
+                  'data' => 'true',
                   'code' => 201
               ]);
             }
@@ -47,6 +48,7 @@ class Employees extends Controller {
         if(count($checkEmployee) > 0){
           return response()->json([
               'message' => 'Employee was exist',
+              'data' => 'true',
               'code' => 201
           ]);
 
@@ -69,6 +71,7 @@ class Employees extends Controller {
           }else{
             return response()->json([
                 'message' => 'Could not create employee',
+                'data' => 'true',
                 'code' => 201
             ]);
           }
@@ -94,6 +97,7 @@ class Employees extends Controller {
         }else{
           return response()->json([
               'message' => 'Employee was not found',
+              'data' => 'true',
               'code' => 201
           ]);
         }
@@ -156,12 +160,14 @@ class Employees extends Controller {
           }else{
             return response()->json([
                 'message' => 'Wrong password',
+                'data' => 'true'
                 'code' => 202
             ]);
           }
       }else{
         return response()->json([
                 'message' => 'Wrong username',
+                'data' => 'true'
                 'code' => 203
             ]);
       }
@@ -177,11 +183,11 @@ class Employees extends Controller {
      */
     public function destroy($id) {
         $employee = Employee::find($id);
-        //print_r($employee);
         $employee->delete();
         //
         return response()->json([
             'message' => 'Employee deleted success.',
+            'data' => 'true'
             'code' => 200
         ]);
     }
