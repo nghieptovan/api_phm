@@ -13,10 +13,12 @@ class TypeMedicineTableSeeder extends Seeder
     {
         //
         DB::table('typemedicine')->insert([
-            'tenloai' => 'kháng sinh',
+            'name' => 'kháng sinh',
+            'code' => 'ks',
         ]);
         DB::table('typemedicine')->insert([
-            'tenloai' => 'giảm đau',
+            'name' => 'giảm đau',
+            'code' => 'gd',
         ]);
     }
 }

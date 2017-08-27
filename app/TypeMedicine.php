@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class TypeMedicine extends Model
 {
     //
-    protected $table='typemedicine';
-    protected $hidden = array('created_at', 'updated_at');
+    protected $table = 'typemedicine';
     public function Medicine()
     {
-        return $this->hasOne('App\Medicine', 'phanloai');
+        return $this->hasOne('App\Medicine', 'id');
     }
 }

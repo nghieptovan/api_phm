@@ -14,16 +14,15 @@ class CreateMedicineTable extends Migration
     {
         Schema::create('medicines', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mathuoc')->unique();
-            $table->string('tenthuoc');
-            $table->string('tenthuoc_toa');
-            $table->integer('usingmedicine_id');
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->string('display_name');
+            $table->string('description');
+            $table->integer('amount');
             $table->integer('typemedicine_id');
-            $table->integer('soluong');
-            $table->integer('soluongxuat');
-            $table->integer('dongia');
-            $table->string('nhandang');
-            $table->timestamp('ngaynhap');
+            $table->integer('behaviourmedicine_id');
+            $table->double('sellprice');
+            $table->double('importedprice');
             $table->timestamps();
         });
     }

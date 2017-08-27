@@ -14,7 +14,8 @@ class CreateTypemedicineTable extends Migration
     {
         Schema::create('typemedicine', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tenloai');
+            $table->string('name');
+            $table->string('code');
             $table->timestamps();
         });
     }

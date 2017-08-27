@@ -42,16 +42,20 @@ Route::post('/api/v1/patients/delete/{id}', 'Patients@destroy');
 Route::get('/api/v1/medicine/{id?}', 'Medicines@index');
 Route::post('/api/v1/medicine', 'Medicines@store');
 Route::post('/api/v1/medicine/{id}', 'Medicines@update');
-Route::post('/api/v1/medicine/delete.{id}', 'Medicines@destroy');
+Route::post('/api/v1/medicine/delete/{id}', 'Medicines@destroy');
 
 
 #status
 Route::get('/api/v1/status/{id?}', 'Statuses@index');
 Route::post('/api/v1/status', 'Statuses@store');
 Route::post('/api/v1/status/{id}', 'Statuses@update');
-Route::post('/api/v1/status/delete.{id}', 'Statuses@destroy');
+Route::post('/api/v1/status/delete/{id}', 'Statuses@destroy');
 
-
+#prescription
+Route::get('/api/v1/prescription/{id?}', 'Prescriptions@index');
+Route::post('/api/v1/prescription', 'Prescriptions@store');
+Route::post('/api/v1/prescription/{id}', 'Prescriptions@update');
+Route::post('/api/v1/prescription/delete/{id}', 'Prescriptions@destroy');
 
 Route::auth();
 

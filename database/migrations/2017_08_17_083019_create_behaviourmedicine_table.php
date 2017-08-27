@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsingmedicineTable extends Migration
+class CreateBehaviourmedicineTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class CreateUsingmedicineTable extends Migration
      */
     public function up()
     {
-        Schema::create('usingmedicine', function (Blueprint $table) {
+        Schema::create('behaviourmedicine', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cachsudung');
+            $table->string('name');
+            $table->string('code');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateUsingmedicineTable extends Migration
      */
     public function down()
     {
-        Schema::drop('usingmedicine');
+        Schema::drop('behaviourmedicine');
     }
 }
