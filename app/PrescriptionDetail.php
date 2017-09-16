@@ -11,6 +11,10 @@ class PrescriptionDetail extends Model
 
 	public function Prescription()
 	{
-	    return $this->belongsTo('App\Prescription', 'prescription_id');
+	    return $this->belongsTo('App\Prescription');
+	}
+	public function Medicine()
+	{
+	    return $this->hasOne('App\Medicine', 'medicine_id');
 	}
 }

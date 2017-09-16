@@ -8,4 +8,8 @@ class Prescription extends Model
 {
     //
     protected $table='prescription';
+    public function Detail()
+    {
+        return $this->hasMany('App\PrescriptionDetail', 'prescription_id');
+    }
 }

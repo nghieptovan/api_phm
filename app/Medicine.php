@@ -16,4 +16,8 @@ class Medicine extends Model
     public function BehaviourMedicine(){
         return $this->belongsTo('App\BehaviourMedicine', 'behaviourmedicine_id');
     }
+
+    public function PrescriptionDetail(){
+        return $this->belongsTo('App\PrescriptionDetail');
+    }
 }

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Prescription;
-use App\Medicine;
 use App\PrescriptionDetail;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class Prescriptions extends Controller
+class PrescriptionDetails extends Controller
 {
+    //
     //
     /**
      * Display a listing of the resource.
@@ -19,15 +19,11 @@ class Prescriptions extends Controller
      */
     public function index($id = null) {
         if ($id == null) {
-            $prescriptions = Prescription::with('Detail')->orderBy('id', 'asc')->get();
-            $prescriptionDetail = [];
-            foreach ($prescriptions->toArray() as $key => $value) {
-              array_push($prescriptionDetail, $this->getMedicine($value['id']));
-            }
-            if(count($prescriptionDetail) > 0){
+            $prescriptions = PrescriptionDetail::orderBy('id', 'asc')->get();
+            if(count($prescriptions) > 0){
               return response()->json([
-                  'message' => 'Prescriptions was found',
-                  'data' => $prescriptionDetail,
+                  'message' => 'PrescriptionDetails was found',
+                  'data' => $prescriptions,
                   'code' => 200
               ]);
             }else{
@@ -89,25 +85,12 @@ class Prescriptions extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function getMedicine($id){
-      $prescription = Prescription::with('Detail')->find($id);
-      $detailmedicine = $prescription->toArray();
-      $medicines = [];
-      foreach ($detailmedicine['detail'] as $key => $value) {
-        array_push($medicines, Medicine::find($value['medicine_id'])->toArray());
-        # code...
-      }
-      $detailmedicine['detail'] = $medicines;
-      return $detailmedicine;
-    }
-
-
     public function show($id) {
-        $detailPrescription = $this->getMedicine($id);        
-        if($detailPrescription !== NULL){
+        $prescription = PrescriptionDetail::find($id);
+        if($prescription !== NULL){
           return response()->json([
-              'message' => 'Prescription was found',
-              'data' => $detailPrescription,
+              'message' => 'PrescriptionDetail was found',
+              'data' => $prescription,
               'code' => 200
           ]);
         }else{
