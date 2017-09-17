@@ -66,6 +66,7 @@ class Prescriptions extends Controller
           $prescription->save();
 
           if($prescription !== NULL){
+            
             return response()->json([
                 'message' => 'Prescription was created',
                 'data' => $prescription,

@@ -21,5 +21,8 @@ class StatusTableSeeder extends Seeder
         DB::table('status')->insert([
             'status_name' => 'dakham',
         ]);
+        DB::table('status')->insert([
+            'status_name' => 'hoanthanh',
+        ]);
     }
 }

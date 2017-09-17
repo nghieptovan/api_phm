@@ -93,6 +93,26 @@ class Patients extends Controller
           ]);
         }
     }
+    public function getByStatus($status){
+      if ($request->has('status')) {
+       print_r($request->input('status'));
+      }
+      
+      // $patient = Patient::find($status);
+      //   if($patient !== NULL){
+      //     return response()->json([
+      //         'message' => 'Patient was found',
+      //         'data' => $patient,
+      //         'code' => 200
+      //     ]);
+      //   }else{
+      //     return response()->json([
+      //         'message' => 'Patient was not found',
+      //         'code' => 201
+      //     ]);
+      //   }
+    }
+    
 
     /**
      * Update the specified resource in storage.

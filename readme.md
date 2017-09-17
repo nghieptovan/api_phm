@@ -40,10 +40,10 @@ php artisan migrate:refresh --seed
 ################################### employees ##################################
 #get employees
 method: GET
-http://phongmach.dev/api/v1/employees/{id}
+http://phongmach.dev/api/v1/employee/{id}
 #create/update employee
 method: POST
-http://phongmach.dev/api/v1/employees/{id}
+http://phongmach.dev/api/v1/employee/{id}
 ###click BODY chọn RAW -> json(application/json)
 ###data:
 {
@@ -59,17 +59,17 @@ http://phongmach.dev/api/v1/employees/{id}
 }
 #delete employee
 method: POST
-http://phongmach.dev/api/v1/employees/delete/{id}
+http://phongmach.dev/api/v1/employee/delete/{id}
 ################################### employees ##################################
 
 ################################### patients ###################################
 #get patients
 method: GET
-http://phongmach.dev/api/v1/patients/{id}
+http://phongmach.dev/api/v1/patient/{id}
 
 #create/update patients
 method: POST
-http://phongmach.dev/api/v1/patients/{id}
+http://phongmach.dev/api/v1/patient/{id}
 {
     "hoten": "Trần Văn A",
     "gioitinh": 1,
@@ -83,7 +83,7 @@ http://phongmach.dev/api/v1/patients/{id}
 
 #delete patient
 method: POST
-http://phongmach.dev/api/v1/patients/delete/{id}
+http://phongmach.dev/api/v1/patient/delete/{id}
 ################################### patients ###################################
 
 
@@ -106,4 +106,36 @@ method: POST
 	"soluong": "1000",
 	"dongia": "2500",
 	"nhandang": "nhandang1"
+}
+
+
+#prescription
+http://phongmach.dev/api/v1/prescription
+method: GET
+{
+    "message": "Prescriptions was found",
+    "data": [
+        {
+            "id": 1,
+            "name": "Toa thuốc mẫu 1",
+            "code": "toamau1",
+            "created_at": null,
+            "updated_at": null
+        },
+        {
+            "id": 2,
+            "name": "Toa thuốc mẫu 2",
+            "code": "toamau2",
+            "created_at": null,
+            "updated_at": null
+        },
+        {
+            "id": 3,
+            "name": "Toa thuốc mẫu 2",
+            "code": "toamau2",
+            "created_at": null,
+            "updated_at": null
+        }
+    ],
+    "code": 200
 }
