@@ -30,11 +30,14 @@ Route::post('/api/v1/diagnosis', 'Diagnosises@store');
 Route::post('/api/v1/diagnosis/{id}', 'Diagnosises@update');
 Route::post('/api/v1/diagnosis/delete/{id}', 'Diagnosises@destroy');
 
+#enclitic
+Route::post('/api/v1/enclitic/getList', 'Enclitics@getList');
 
 #patients
 Route::get('/api/v1/patient/{id?}', 'Patients@index');
-Route::get('/api/v1/patient/status={status?}', 'Patients@getByStatus');
+Route::post('/api/v1/patient/searchPatient', 'Patients@searchPatient');
 Route::post('/api/v1/patient', 'Patients@store');
+Route::post('/api/v1/patient/search', 'Patients@store');
 Route::post('/api/v1/patient/{id}', 'Patients@update');
 Route::post('/api/v1/patient/delete/{id}', 'Patients@destroy');
 

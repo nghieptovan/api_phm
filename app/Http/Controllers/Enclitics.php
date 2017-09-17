@@ -2,20 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Patient;
 use App\Enclitic;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+// use Illuminate\Support\Facades\DB;
 
-class Patients extends Controller
+
+class Enclitics extends Controller
 {
+    //
     //
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
+    
+
+    public function getList(Request $request) {
+    	// $checkList = Enclitic::where('status_id', $request->input('status_id'))->get();
+    	// $checkList = Enclitic::whereRaw('date like %'.$request->input('date').'% and status_id = '.$request->input('status_id'))->get();
+    	$checkList = Enclitic::where('status_id', $request->input('status_id'))
+    ->Where('date', 'like', $request->input('date') . '%')->get();
+
+        if(count($checkList) > 0){
+
+          return response()->json([
+              'message' => 'Enclitics was found',
+              'data' => $checkList,
+              'code' => 200
+          ]);
+        }else{
+          return response()->json([
+              'message' => 'Data was not found',
+              'code' => 201
+          ]);
+        }          
+    }
     public function index($id = null) {
         if ($id == null) {
             $patients = Patient::with('Employee', 'Trangthai')->orderBy('id', 'asc')->get();
@@ -36,32 +60,6 @@ class Patients extends Controller
         } else {
             return $this->show($id);
         }
-    }
-
-    public function searchPatient(Request $request) {
-      if(isset($request->code)){
-        $listPatient = Patient::where('code', 'like', '%'.$request->input('code').'%')->get();
-      }
-      if(isset($request->name)){
-        $listPatient = Patient::where('name', 'like', '%'.$request->input('name').'%')->get();
-      }
-      if(isset($request->phone)){
-        $listPatient = Patient::where('phone', 'like', '%'.$request->input('phone').'%')->get();
-      }
-    
-      if(count($listPatient) > 0){
-        return response()->json([
-              'message' => 'Patients was found',
-              'data' => $listPatient,
-              'code' => 200
-          ]);
-      }else{
-        return response()->json([
-            'message' => 'Data was not found',
-            'code' => 201
-        ]);
-      }
-
     }
 
     /**
@@ -120,12 +118,6 @@ class Patients extends Controller
     public function show($id) {
         $patient = Patient::find($id);
         if($patient !== NULL){
-          $listEnclitic = Enclitic::where('patient_id', $patient->id)->get();
-          if(count($listEnclitic) > 0){
-            $patient['listEnclitic'] = $listEnclitic;
-          }else{
-            $patient['listEnclitic'] = [];
-          }
           return response()->json([
               'message' => 'Patient was found',
               'data' => $patient,

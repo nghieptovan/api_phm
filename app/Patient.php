@@ -18,4 +18,5 @@ class Patient extends Model
     public function Trangthai(){
         return $this->belongsTo('App\Status', 'status_id');
     }
+
 }

@@ -81,6 +81,15 @@ http://phongmach.dev/api/v1/patient/{id}
     "employee_id": 2
 }
 
+
+#search
+http://phongmach.dev/api/v1/patient/searchPatient
+method: POST
+
+{
+  "name": "Lê" hoac "phone": "0908" hoac "code": "BN0"
+}
+
 #delete patient
 method: POST
 http://phongmach.dev/api/v1/patient/delete/{id}
@@ -139,3 +148,12 @@ method: GET
     ],
     "code": 200
 }
+
+#enclitic
+http://phongmach.dev/api/v1/enclitic/getList
+POST
+{
+  "status_id": 1,
+  "date": "18/09/2017"
+}
+
