@@ -95,7 +95,17 @@ class Prescriptions extends Controller
       $detailmedicine = $prescription->toArray();
       $medicines = [];
       foreach ($detailmedicine['detail'] as $key => $value) {
-        array_push($medicines, Medicine::find($value['medicine_id'])->toArray());
+        $detail = [];
+        $medicine = Medicine::find($value['medicine_id'])->toArray();
+
+        $detail['daydrink'] = $value['daydrink'];
+        $detail['timesperday'] = $value['timesperday'];
+        $detail['daycount'] = $value['daycount'];
+        $detail['number'] = $value['number'];
+        $detail['description'] = $medicine['description'];
+        $detail['display_name'] = $medicine['display_name'];       
+        $detail['medicine_id'] = $medicine['id'];
+        array_push($medicines, $detail);
         # code...
       }
       $detailmedicine['detail'] = $medicines;

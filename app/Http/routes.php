@@ -77,4 +77,15 @@ Route::post('/api/v1/prescriptiondetail/{id}', 'Prescriptions@update');
 Route::post('/api/v1/prescriptiondetail/delete/{id}', 'Prescriptions@destroy');
 Route::auth();
 
+
+#Bill
+Route::get('/api/v1/bill/{id?}', 'Bills@index');
+Route::post('/api/v1/bill', 'Bills@store');
+Route::post('/api/v1/bill/{id}', 'Bills@update');
+Route::post('/api/v1/bill/delete/{id}', 'Bills@destroy');
+
+
+
+Route::auth();
+
 Route::get('/home', 'HomeController@index');

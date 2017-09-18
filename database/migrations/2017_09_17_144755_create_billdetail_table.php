@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePresriptionDetailTable extends Migration
+class CreateBilldetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,17 @@ class CreatePresriptionDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('prescriptiondetail', function (Blueprint $table) {
+        Schema::create('billdetail', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('prescription_id');
+            $table->integer('bill_id');
             $table->integer('medicine_id');
-            $table->string('daydrink');
+            $table->float('price');
             $table->integer('timesperday');
+            $table->string('daydrink');
+            $table->integer('number');
             $table->integer('daycount');
-            $table->integer('number');            
+            $table->string('description');
+            $table->integer('isDelete')->default('0');
             $table->timestamps();
         });
     }
@@ -31,6 +34,6 @@ class CreatePresriptionDetailTable extends Migration
      */
     public function down()
     {
-        Schema::drop('prescriptiondetail');
+        Schema::drop('billdetail');
     }
 }
