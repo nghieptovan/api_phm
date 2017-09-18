@@ -30,8 +30,8 @@ class Enclitics extends Controller
 
         if(count($checkList) > 0){
           foreach ($checkList as $key => $value) {
-            $employee = Employee::findOrFail($value['employee_id']);
-            $patient = Patient::findOrFail($value['patient_id']);
+            $employee = Employee::find($value['employee_id']);
+            $patient = Patient::find($value['patient_id']);
             $checkList[$key]['employee'] = $employee ? $employee : [];
             $checkList[$key]['patient'] = $patient ? $patient : [];
           }
