@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Enclitic;
+use App\Patient;
+use App\Employee;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -27,7 +29,12 @@ class Enclitics extends Controller
     ->Where('date', 'like', $request->input('date') . '%')->get();
 
         if(count($checkList) > 0){
-
+          foreach ($checkList as $key => $value) {
+            $employee = Employee::find($value['employee_id']);
+            $patient = Patient::find($value['patient_id']);
+            $checkList[$key]['employee'] = $employee;
+            $checkList[$key]['patient'] = $patient;
+          }
           return response()->json([
               'message' => 'Enclitics was found',
               'data' => $checkList,
