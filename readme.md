@@ -156,4 +156,108 @@ POST
   "status_id": 1,
   "date": "18/09/2017"
 }
+ #CREATE 
+ http://phongmach.dev/api/v1/enclitic
+ POST
+{
+  "patient_id": 2,
+    "employee_id": 1,
+    "status_id": 1
+    "date": "21/09/2017 04:27:20" (co thi get date, khong co thi lay theo date hien tai)
+}
 
+
+
+#bill
+
+#get list bill
+http://phongmach.dev/api/v1/bill
+METHOD: GET
+
+
+#create bill
+http://phongmach.dev/api/v1/bill
+METHOD: {POST}
+{
+  "patient_id": 3,
+    "billdate": "17/09/2017 11:11:51",
+    "symptom": "Ngay 2109",
+    "diagnosis_id": 1,
+    "subdiagnosis": "Ngay 2109",
+    "introduction": "tai kham lai Ngay 2209",
+    "nextdate": "30/10/2017",
+    "index": 2,
+    "doctor_id": 1,
+    "dispenser_id": 0,
+    "dispensedatetime": "",
+    "enclitic_id": 1,
+    "bill_detail": [
+      {
+        "medicine_id": 1,
+        "price": 3400,
+        "timesperday": 2,
+        "daydrink": "nua vien",
+        "number": 5,
+        "daycount": 5,
+          "description": "chống chỉ định cho trẻ em22222222222222222"
+      },
+      {
+        "medicine_id": 2,
+        "price": 3400,
+        "timesperday": 2,
+        "daydrink": "1 vien",
+        "number": 5,
+        "daycount": 5,
+        "description": "chống chỉ định cho trẻ em"
+        }
+######note: bill detail gom array prescription co san + thuoc them moi
+      ]
+    
+}
+
+
+######update bill
+http://phongmach.dev/api/v1/bill/{id}
+METHOD: POST
+{
+    "symptom": "Ngay 2109",
+    "diagnosis_id": 1,
+    "subdiagnosis": "Ngay 2109",
+    "introduction": "tai kham lai Ngay 2209",
+    "nextdate": "30/10/2017",
+    "index": 2,
+    "dispenser_id": 0,
+    "dispensedatetime": "",
+    "bill_detail": [
+      {
+        "medicine_id": 1,
+            "price": 3400,
+            "timesperday": 2,
+            "daydrink": "nua vien",
+            "number": 5,
+            "daycount": 5,
+          "description": "chống chỉ định cho trẻ emupdate"
+      },
+      {
+            "medicine_id": 2,
+            "price": 3400,
+            "timesperday": 2,
+            "daydrink": "1 vien",
+            "number": 5,
+            "daycount": 5,
+            "description": "chống chỉ định cho trẻ emupdate"
+        }
+      ]
+######note: bill detail gom array prescription co san + thuoc them moi
+
+######param nao can update thi truyen len, khong can thi thoi
+}
+
+#delete bill 
+http://phongmach.dev/api/v1/bill/delete/2
+METHOD: POST
+
+Return {
+    "message": "Bill deleted success.",
+    "code": 200
+}

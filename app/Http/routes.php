@@ -31,7 +31,13 @@ Route::post('/api/v1/diagnosis/{id}', 'Diagnosises@update');
 Route::post('/api/v1/diagnosis/delete/{id}', 'Diagnosises@destroy');
 
 #enclitic
+Route::get('/api/v1/enclitic/{id?}', 'Enclitics@index');
 Route::post('/api/v1/enclitic/getList', 'Enclitics@getList');
+Route::post('/api/v1/enclitic/{id}', 'Enclitics@takeMedicine');
+Route::post('/api/v1/enclitic', 'Enclitics@store');
+// Route::post('/api/v1/enclitic/{id}', 'Enclitics@update');
+Route::post('/api/v1/enclitic/delete/{id}', 'Enclitics@destroy');
+
 
 #patients
 Route::get('/api/v1/patient/{id?}', 'Patients@index');
@@ -47,6 +53,18 @@ Route::get('/api/v1/medicine/{id?}', 'Medicines@index');
 Route::post('/api/v1/medicine', 'Medicines@store');
 Route::post('/api/v1/medicine/{id}', 'Medicines@update');
 Route::post('/api/v1/medicine/delete/{id}', 'Medicines@destroy');
+
+#Typemedicines
+Route::get('/api/v1/typemedicine/{id?}', 'TypeMedicines@index');
+Route::post('/api/v1/typemedicine', 'TypeMedicines@store');
+Route::post('/api/v1/typemedicine/{id}', 'TypeMedicines@update');
+Route::post('/api/v1/typemedicine/delete/{id}', 'TypeMedicines@destroy');
+
+#Behaviourmedicines
+Route::get('/api/v1/behaviourmedicine/{id?}', 'BehaviourMedicines@index');
+Route::post('/api/v1/behaviourmedicine', 'BehaviourMedicines@store');
+Route::post('/api/v1/behaviourmedicine/{id}', 'BehaviourMedicines@update');
+Route::post('/api/v1/behaviourmedicine/delete/{id}', 'BehaviourMedicines@destroy');
 
 
 #status

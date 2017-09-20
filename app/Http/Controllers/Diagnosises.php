@@ -42,9 +42,9 @@ class Diagnosises extends Controller
     public function store(Request $request) {
         $diagnosis = new Diagnosis;
 
-        $diagnosis->ma_chuandoan = $request->input('ma_chuandoan');
-        $diagnosis->chuandoan = $request->input('chuandoan');
-        $diagnosis->vt_chuandoan = $request->input('vt_chuandoan');
+        $diagnosis->name = $request->input('name');
+        $diagnosis->code = $request->input('code');
+        $diagnosis->short_name = $request->input('short_name');
         $diagnosis->save();
 
         if($status !== NULL){
@@ -64,12 +64,12 @@ class Diagnosises extends Controller
     public function update(Request $request, $id) {
         $diagnosis = Diagnosis::find($id);
 
-        if(isset($request->ma_chuandoan))
-          $diagnosis->ma_chuandoan = $request->input('ma_chuandoan');
-        if(isset($request->chuandoan))
-          $diagnosis->chuandoan = $request->input('chuandoan');
-        if(isset($request->vt_chuandoan))
-          $diagnosis->vt_chuandoan = $request->input('vt_chuandoan');
+        if(isset($request->name))
+          $diagnosis->name = $request->input('name');
+        if(isset($request->code))
+          $diagnosis->code = $request->input('code');
+        if(isset($request->short_name))
+          $diagnosis->short_name = $request->input('short_name');
 
         $diagnosis->save();
         return response()->json([

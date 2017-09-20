@@ -23,8 +23,6 @@ class Enclitics extends Controller
     
 
     public function getList(Request $request) {
-    	// $checkList = Enclitic::where('status_id', $request->input('status_id'))->get();
-    	// $checkList = Enclitic::whereRaw('date like %'.$request->input('date').'% and status_id = '.$request->input('status_id'))->get();
     	$checkList = Enclitic::where('status_id', $request->input('status_id'))
     ->Where('date', 'like', $request->input('date') . '%')->get();
 
@@ -47,14 +45,15 @@ class Enclitics extends Controller
           ]);
         }          
     }
+    
     public function index($id = null) {
         if ($id == null) {
-            $patients = Patient::with('Employee', 'Trangthai')->orderBy('id', 'asc')->get();
-            if(count($patients) > 0){
+            $enclitics = Enclitic::orderBy('id', 'asc')->get();
+            if(count($enclitics) > 0){
 
               return response()->json([
-                  'message' => 'Patients was found',
-                  'data' => $patients,
+                  'message' => 'Enclitices was found',
+                  'data' => $enclitics,
                   'code' => 200
               ]);
             }else{
@@ -75,45 +74,50 @@ class Enclitics extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request) {
-        $patient = new Patient;
 
-        $patient->code = 'BN'.date("Ymdhis");
-        $patient->name = $request->input('name');
-        $patient->sex = $request->input('sex');
-        $patient->weight = $request->input('weight');
-        $patient->birthday = $request->input('birthday');
-        $patient->address = $request->input('address');
-        $patient->phone = $request->input('phone');
-        $patient->diagnosis = $request->input('diagnosis');
-        $patient->employee_id = $request->input('employee_id');
-        $patient->status_id = 1;
-
-        $patient->save();
-
-        if($patient !== NULL){
-          $enclitic = new Enclitic;
-
-          $enclitic->patient_id = $patient->id;
-          $enclitic->status_id = 1;
-          $enclitic->employee_id = $patient->employee_id;
-          $enclitic->date = date("d/m/Y h:i:s");
-
+    public function takeMedicine(Request $request, $id){
+      $enclitic = Enclitic::find($id);
+      if($enclitic != null){
+        if($enclitic->status_id == 3){
+          $enclitic->status_id = 4;
           $enclitic->save();
-
-          $patient->enclitic = $enclitic;
-
           return response()->json([
-              'message' => 'Patient was created',
-              'data' => $patient,
-              'code' => 200
-          ]);
-        }else{
-          return response()->json([
-              'message' => 'Could not create Patient',
-              'code' => 201
-          ]);
+            'message' => 'Enclitic was updated.',
+            'data' => $enclitic,
+            'code' => 200
+        ]);
         }
+        
+      }else{
+        return response()->json([
+            'message' => 'Enclitic was not found.',
+            'code' => 201
+        ]);
+      }
+
+    }
+
+    public function store(Request $request) {
+        $enclitic = new Enclitic;
+
+        $enclitic->patient_id = $request->input('patient_id');
+        $enclitic->status_id = $request->input('status_id');;
+        $enclitic->employee_id = $request->input('employee_id');
+
+        if($request->input('date') !== null){
+          $enclitic->date = $request->input('date');
+        }
+        else{
+          $enclitic->date = date("d/m/Y h:i:s");
+        }
+
+        $enclitic->save();
+
+        return response()->json([
+            'message' => 'Enclitic was created',
+            'data' => $enclitic,
+            'code' => 200
+        ]);
     }
 
     /**
@@ -123,36 +127,19 @@ class Enclitics extends Controller
      * @return Response
      */
     public function show($id) {
-        $patient = Patient::find($id);
-        if($patient !== NULL){
+        $enclitic = Enclitic::find($id);
+        if($enclitic !== NULL){
           return response()->json([
-              'message' => 'Patient was found',
-              'data' => $patient,
+              'message' => 'Enclitic was found',
+              'data' => $enclitic,
               'code' => 200
           ]);
         }else{
           return response()->json([
-              'message' => 'Patient was not found',
+              'message' => 'Enclitic was not found',
               'code' => 201
           ]);
         }
-    }
-    public function getByStatus(Request $request){
-      print_r($request->status);
-      
-      // $patient = Patient::find($status);
-      //   if($patient !== NULL){
-      //     return response()->json([
-      //         'message' => 'Patient was found',
-      //         'data' => $patient,
-      //         'code' => 200
-      //     ]);
-      //   }else{
-      //     return response()->json([
-      //         'message' => 'Patient was not found',
-      //         'code' => 201
-      //     ]);
-      //   }
     }
     
 
@@ -164,30 +151,20 @@ class Enclitics extends Controller
      * @return Response
      */
     public function update(Request $request, $id) {
-        $patient = Patient::find($id);
+        $enclitic = Enclitic::find($id);
 
-        if(isset($request->name))
-          $patient->name = $request->input('name');
-        if(isset($request->sex))
-          $patient->sex = $request->input('sex');
-        if(isset($request->weight))
-          $patient->weight = $request->input('weight');
-        if(isset($request->birthday))
-          $patient->birthday = $request->input('birthday');
-        if(isset($request->address))
-          $patient->address = $request->input('address');
-        if(isset($request->phone))
-          $patient->phone = $request->input('phone');
-        if(isset($request->diagnosis))
-          $patient->diagnosis = $request->input('diagnosis');
-        if(isset($request->employee_id))
-          $patient->employee_id = $request->input('employee_id');
+        if(isset($request->patient_id))
+          $enclitic->patient_id = $request->input('patient_id');
         if(isset($request->status_id))
-          $patient->status_id = $request->input('status_id');
-        $patient->save();
+          $enclitic->status_id = $request->input('status_id');
+        if(isset($request->employee_id))
+          $enclitic->employee_id = $request->input('employee_id');
+        $enclitic->date = date("d/m/Y h:i:s");
+        
+        $enclitic->save();
 
         return response()->json([
-            'message' => 'Patient was updated.',
+            'message' => 'Enclitic was updated.',
             'data' => $patient,
             'code' => 200
         ]);
@@ -200,12 +177,11 @@ class Enclitics extends Controller
      * @return Response
      */
     public function destroy($id) {
-        $patient = Patient::find($id);
-        //print_r($employee);
-        $patient->delete();
+        $enclitic = Enclitic::find($id);
+        $enclitic->delete();
         //
         return response()->json([
-            'message' => 'Patient deleted success.',
+            'message' => 'Enclitic deleted success.',
             'code' => 200
         ]);
     }
