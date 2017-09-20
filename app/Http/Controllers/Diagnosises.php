@@ -35,7 +35,7 @@ class Diagnosises extends Controller
     }
 
     public function show($id) {
-        $diagnosises = Diagnosis::with('Role')->find($id);
+        $diagnosises = Diagnosis::find($id);
         if($diagnosises !== NULL){
           return response()->json([
               'message' => 'Diagnosis was found',
