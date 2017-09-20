@@ -65,7 +65,7 @@ class Diagnosises extends Controller
         $diagnosis->short_name = $request->input('short_name');
         $diagnosis->save();
 
-        if($status !== NULL){
+        if($diagnosis !== NULL){
           return response()->json([
               'message' => 'Diagnosis was created',
               'data' => $diagnosis,
