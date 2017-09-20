@@ -34,6 +34,7 @@ class Bills extends Controller
             }else{
               return response()->json([
                   'message' => 'Data was not found',
+                  'data' => 'true',
                   'code' => 201
               ]);
             }
@@ -141,12 +142,14 @@ class Bills extends Controller
 	        }else{
 	          return response()->json([
 	              'message' => 'Could not create bill',
+	              'data' => 'true',
 	              'code' => 201
 	          ]);
 	        }
     	}else{
     		return response()->json([
               'message' => 'Please add medicine.',
+              'data' => 'true',
               'code' => 202
           ]);
     	}
@@ -216,6 +219,7 @@ class Bills extends Controller
         }else{
         	return response()->json([
 	            'message' => 'Bill cound not found.',
+	            'data' => 'true',
 	            'code' => 202
 	        ]);
         }
@@ -235,6 +239,7 @@ class Bills extends Controller
         $listPatient = BillDetail::where('bill_id', $id)->delete();
         return response()->json([
             'message' => 'Bill deleted success.',
+            'data' => 'true',
             'code' => 200
         ]);
     }

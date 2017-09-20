@@ -24,12 +24,30 @@ class Diagnosises extends Controller
             }else{
               return response()->json([
                   'message' => 'Data was not found',
+                  'data' => 'true',
                   'code' => 201
               ]);
             }
 
         } else {
             return $this->show($id);
+        }
+    }
+
+    public function show($id) {
+        $diagnosises = Diagnosis::with('Role')->find($id);
+        if($diagnosises !== NULL){
+          return response()->json([
+              'message' => 'Diagnosis was found',
+              'data' => $diagnosises,
+              'code' => 200
+          ]);
+        }else{
+          return response()->json([
+              'message' => 'Diagnosis was not found',
+              'data' => 'true',
+              'code' => 201
+          ]);
         }
     }
 
@@ -56,6 +74,7 @@ class Diagnosises extends Controller
         }else{
           return response()->json([
               'message' => 'Could not create Diagnosis',
+              'data' => 'true',
               'code' => 201
           ]);
         }
@@ -91,6 +110,7 @@ class Diagnosises extends Controller
         //
         return response()->json([
             'message' => 'Diagnosis deleted success.',
+            'data' => 'true',
             'code' => 200
         ]);
     }

@@ -58,6 +58,7 @@ class Patients extends Controller
       }else{
         return response()->json([
             'message' => 'Data was not found',
+            'data' => 'true',
             'code' => 201
         ]);
       }
@@ -106,6 +107,7 @@ class Patients extends Controller
         }else{
           return response()->json([
               'message' => 'Could not create Patient',
+              'data' => 'true',
               'code' => 201
           ]);
         }
@@ -134,6 +136,7 @@ class Patients extends Controller
         }else{
           return response()->json([
               'message' => 'Patient was not found',
+              'data' => 'true',
               'code' => 201
           ]);
         }
@@ -207,6 +210,7 @@ class Patients extends Controller
         //
         return response()->json([
             'message' => 'Patient deleted success.',
+            'data' => 'true',
             'code' => 200
         ]);
     }

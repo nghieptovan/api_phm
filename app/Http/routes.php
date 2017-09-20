@@ -80,6 +80,13 @@ Route::post('/api/v1/prescription/{id}', 'Prescriptions@update');
 Route::post('/api/v1/prescription/delete/{id}', 'Prescriptions@destroy');
 
 
+#prescriptiondetail
+Route::get('/api/v1/prescriptiondetail/{id?}', 'PrescriptionDetails@index');
+Route::post('/api/v1/prescriptiondetail', 'Prescriptions@store');
+Route::post('/api/v1/prescriptiondetail/{id}', 'Prescriptions@update');
+Route::post('/api/v1/prescriptiondetail/delete/{id}', 'Prescriptions@destroy');
+Route::auth();
+
 #configuration
 Route::get('/api/v1/config/{id?}', 'Configs@index');
 Route::post('/api/v1/config', 'Configs@store');
@@ -88,12 +95,7 @@ Route::post('/api/v1/config/delete/{id}', 'Configs@destroy');
 
 
 
-#prescriptiondetail
-Route::get('/api/v1/prescriptiondetail/{id?}', 'PrescriptionDetails@index');
-Route::post('/api/v1/prescriptiondetail', 'Prescriptions@store');
-Route::post('/api/v1/prescriptiondetail/{id}', 'Prescriptions@update');
-Route::post('/api/v1/prescriptiondetail/delete/{id}', 'Prescriptions@destroy');
-Route::auth();
+
 
 
 #Bill

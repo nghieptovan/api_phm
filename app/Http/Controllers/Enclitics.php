@@ -41,6 +41,7 @@ class Enclitics extends Controller
         }else{
           return response()->json([
               'message' => 'Data was not found',
+              'data' => 'true',
               'code' => 201
           ]);
         }          
@@ -59,6 +60,7 @@ class Enclitics extends Controller
             }else{
               return response()->json([
                   'message' => 'Data was not found',
+                  'data' => 'true',
                   'code' => 201
               ]);
             }
@@ -91,6 +93,7 @@ class Enclitics extends Controller
       }else{
         return response()->json([
             'message' => 'Enclitic was not found.',
+            'data' => 'true',
             'code' => 201
         ]);
       }
@@ -137,6 +140,7 @@ class Enclitics extends Controller
         }else{
           return response()->json([
               'message' => 'Enclitic was not found',
+              'data' => 'true',
               'code' => 201
           ]);
         }
@@ -182,6 +186,7 @@ class Enclitics extends Controller
         //
         return response()->json([
             'message' => 'Enclitic deleted success.',
+            'data' => 'true',
             'code' => 200
         ]);
     }

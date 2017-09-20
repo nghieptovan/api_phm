@@ -22,6 +22,7 @@ class BehaviourMedicines extends Controller
             }else{
               return response()->json([
                   'message' => 'Data was not found',
+                  'data' => 'true',
                   'code' => 201
               ]);
             }
@@ -53,6 +54,7 @@ class BehaviourMedicines extends Controller
         }else{
           return response()->json([
               'message' => 'Could not create BehaviourMedicine',
+              'data' => 'true',
               'code' => 201
           ]);
         }
@@ -75,6 +77,7 @@ class BehaviourMedicines extends Controller
         }else{
     		return response()->json([
               'message' => 'Can not find BehaviourMedicine with id = '.$id,
+              'data' => 'true',
               'code' => 202
           ]);
     	}
@@ -93,6 +96,7 @@ class BehaviourMedicines extends Controller
         //
         return response()->json([
             'message' => 'BehaviourMedicine deleted success.',
+            'data' => 'true',
             'code' => 200
         ]);
     }

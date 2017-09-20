@@ -20,6 +20,7 @@ class Medicines extends Controller {
             }else{
               return response()->json([
                   'message' => 'Data was not found',
+                  'data' => 'true',
                   'code' => 201
               ]);
             }
@@ -136,6 +137,7 @@ class Medicines extends Controller {
         //
         return response()->json([
             'message' => 'Medicine deleted success.',
+            'data' => 'true',
             'code' => 200
         ]);
     }

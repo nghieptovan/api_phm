@@ -22,6 +22,7 @@ class Configs extends Controller
             }else{
               return response()->json([
                   'message' => 'Data was not found',
+                  'data' => 'true',
                   'code' => 201
               ]);
             }
@@ -71,6 +72,7 @@ class Configs extends Controller
         }else{
           return response()->json([
               'message' => 'Could not create Config',
+              'data' => 'true',
               'code' => 201
           ]);
         }
@@ -104,6 +106,7 @@ class Configs extends Controller
         //
         return response()->json([
             'message' => 'Config deleted success.',
+            'data' => 'true',
             'code' => 200
         ]);
     }
