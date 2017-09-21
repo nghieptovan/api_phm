@@ -46,37 +46,102 @@ class PrescriptionDetails extends Controller
      * @return Response
      */
     public function store(Request $request) {        
+        $prescription_id = $request->input('prescription_id');
+        if($prescription_id !== null){
+          $prescription = Prescription::find($prescription_id);
+          $prescription_detail = $request->input('prescription_detail');
+          if(count($prescription_detail) > 0){
+            $returnList = [];
+            foreach ($prescription_detail as $key => $value) {
+              # code...
+              $prescription_det = new PrescriptionDetail;
+              $prescription_det->prescription_id = $value['prescription_id'];
+              $prescription_det->medicine_id = $value['medicine_id'];
+              $prescription_det->daydrink = $value['daydrink'];
+              $prescription_det->timesperday = $value['timesperday'];
+              $prescription_det->daycount = $value['daycount'];
+              $prescription_det->number = $value['number'];
+              $prescription_det->save();
+              array_push($returnList, $prescription_det);
+            }
 
-        $checkPrescription = Prescription::where('name', $request->input('name'))->take(1)->get();
-        if(count($checkPrescription) > 0){
+            return response()->json([
+              'message' => 'PrescriptionDetail was created.',
+              'data' => $returnList,
+              'code' => 201
+          ]);
+          }
+        }else{
           return response()->json([
-              'message' => 'Prescription was exist',
+              'message' => 'prescription_id could not be null',
               'data' => 'true',
               'code' => 201
           ]);
-
-        }else{
-          $prescription = new Prescription;
-          $prescription->name = $request->input('name');
-          $prescription->code = $request->input('code');                  
-          $prescription->save();
-
-          if($prescription !== NULL){
-            return response()->json([
-                'message' => 'Prescription was created',
-                'data' => $prescription,
-                'code' => 200
-            ]);
-          }else{
-            return response()->json([
-                'message' => 'Could not create prescription',
-                'data' => 'true',
-                'code' => 201
-            ]);
-          }
         }
+    }
 
-        
+    public function getPrescriptionDetail($prescription_id) {
+        if ($prescription_id !== null) {
+            $prescriptions = PrescriptionDetail::where('prescription_id', $prescription_id)->get();
+            if(count($prescriptions) > 0){
+              return response()->json([
+                  'message' => 'PrescriptionDetails was found',
+                  'data' => $prescriptions,
+                  'code' => 200
+              ]);
+            }else{
+              return response()->json([
+                  'message' => 'Data was not found',
+                  'data' => 'true',
+                  'code' => 201
+              ]);
+            }
+
+        } else {
+            return response()->json([
+              'message' => 'prescription_id could not be null',
+              'data' => 'true',
+              'code' => 201
+          ]);
+        }
+    }
+    
+
+    public function savePrescriptionDetail(Request $request) {        
+        $prescription_id = $request->input('prescription_id');
+        if($prescription_id !== null){
+          $prescription = Prescription::find($prescription_id);
+          $prescription_detail = $request->input('prescription_detail');
+          if(count($prescription_detail) > 0){
+
+            $listPatient = PrescriptionDetail::where('prescription_id', $prescription_id)->delete();
+
+            $returnList = [];
+            foreach ($prescription_detail as $key => $value) {
+              # code...
+              $prescription_det = new PrescriptionDetail;
+              $prescription_det->prescription_id = $value['prescription_id'];
+              $prescription_det->medicine_id = $value['medicine_id'];
+              $prescription_det->daydrink = $value['daydrink'];
+              $prescription_det->timesperday = $value['timesperday'];
+              $prescription_det->daycount = $value['daycount'];
+              $prescription_det->number = $value['number'];
+              $prescription_det->save();
+              array_push($returnList, $prescription_det);
+            }
+            return response()->json([
+              'message' => 'PrescriptionDetail was created.',
+              'data' => $returnList,
+              'code' => 201
+          ]);
+          }
+        }else{
+          return response()->json([
+              'message' => 'prescription_id could not be null',
+              'data' => 'true',
+              'code' => 201
+          ]);
+        }
     }
 
     /**
@@ -109,21 +174,21 @@ class PrescriptionDetails extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id) {
-        $prescription = Prescription::find($id);
-        if(isset($request->name))
-          $prescription->name = $request->input('name');
+    // public function update(Request $request, $id) {
+    //     $prescription = PrescriptionDetail::find($id);
+    //     if(isset($request->name))
+    //       $prescription->name = $request->input('name');
 
-        if(isset($request->code))
-          $prescription->code = $request->input('code');
+    //     if(isset($request->code))
+    //       $prescription->code = $request->input('code');
         
-        $prescription->save();
-        return response()->json([
-            'message' => 'prescription was updated.',
-            'data' => $prescription,
-            'code' => 200
-        ]);
-    }
+    //     $prescription->save();
+    //     return response()->json([
+    //         'message' => 'prescription was updated.',
+    //         'data' => $prescription,
+    //         'code' => 200
+    //     ]);
+    // }
     
 
     /**
@@ -133,11 +198,11 @@ class PrescriptionDetails extends Controller
      * @return Response
      */
     public function destroy($id) {
-        $prescription = Prescription::find($id);
+        $prescription = PrescriptionDetail::find($id);
         $prescription->delete();
         //
         return response()->json([
-            'message' => 'Prescription deleted success.',
+            'message' => 'PrescriptionDetail deleted success.',
             'data' => 'true',
             'code' => 200
         ]);

@@ -119,7 +119,7 @@ method: POST
 
 
 #prescription
-http://phongmach.dev/api/v1/prescription
+http://phongmach.dev/api/v1/prescription/{id?}
 method: GET
 {
     "message": "Prescriptions was found",
@@ -148,6 +148,67 @@ method: GET
     ],
     "code": 200
 }
+#update prescription
+http://phongmach.dev/api/v1/prescription/{id}
+method: POST
+{
+  "name": "Toa thuốc mẫu 1edit",
+  "code": "toamau1"
+}
+
+#delete prescription
+http://phongmach.dev/api/v1/prescription/delete/{id}
+method: POST
+returndata
+{
+    "message": "Prescription deleted success.",
+    "data": "true",
+    "code": 200
+}
+
+
+### prescriptiondetail
+#get list detail
+http://phongmach.dev/api/v1/getPrescriptionDetail/{prescription_id}
+METHOD GET
+#delete prescriptiondetail
+http://phongmach.dev/api/v1/prescriptiondetail/delete/{id}
+METHOD: POST
+datareturn
+{
+    "message": "PrescriptionDetail deleted success.",
+    "data": "true",
+    "code": 200
+}
+#save
+#update && create
+http://phongmach.dev/api/v1/savePrescriptionDetail   update
+http://phongmach.dev/api/v1/prescriptiondetail  create
+
+METHOD:POST
+
+{
+  "prescription_id": 3,
+  "prescription_detail": [
+    {
+      "prescription_id": 3,
+          "medicine_id": 1,
+          "daydrink": "10 vien",
+          "timesperday": 3,
+          "daycount": 20,
+          "number": 60
+    },
+    {
+      "prescription_id": 3,
+          "medicine_id": 2,
+          "daydrink": "1vien",
+          "timesperday": 3,
+          "daycount": 10,
+          "number": 30
+    }
+  ]
+}
+
 
 #enclitic
 http://phongmach.dev/api/v1/enclitic/getList
@@ -174,6 +235,9 @@ POST
 http://phongmach.dev/api/v1/bill
 METHOD: GET
 
+#getByPatient
+http://phongmach.dev/api/v1/bill/getByPatient/{patient_id}
+METHOD: GET
 
 #create bill
 http://phongmach.dev/api/v1/bill
@@ -249,6 +313,132 @@ METHOD: POST
         }
       ]
 ######note: bill detail gom array prescription co san + thuoc them moi
+##http://phongmach.dev/api/v1/bill/getByPatient/2
+http://phongmach.dev/api/v1/bill/getByPatient/{patient_id}
+METHOD: GET
+{
+    "message": "Bills was found",
+    "data": [
+        {
+            "id": 1,
+            "patient_id": 2,
+            "enclitic_id": 1,
+            "billdate": "21/09/2017 05:33:49",
+            "symptom": "Ngay 2109",
+            "diagnosis_id": 1,
+            "subdiagnosis": "Ngay 2109",
+            "introduction": "tai kham lai Ngay 2209",
+            "nextdate": "30/10/2017",
+            "index": 2,
+            "doctor_id": 1,
+            "dispenser_id": 0,
+            "dispensedatetime": "",
+            "created_at": "2017-09-21 05:33:49",
+            "updated_at": "2017-09-21 05:33:49",
+            "details": [
+                {
+                    "id": 1,
+                    "bill_id": 1,
+                    "medicine_id": 1,
+                    "price": 3400,
+                    "timesperday": 2,
+                    "daydrink": "nua vien",
+                    "number": 5,
+                    "daycount": 5,
+                    "description": "chống chỉ định cho trẻ em22222222222222222",
+                    "isDelete": 0,
+                    "created_at": "2017-09-21 05:33:49",
+                    "updated_at": "2017-09-21 05:33:49"
+                },
+                {
+                    "id": 2,
+                    "bill_id": 1,
+                    "medicine_id": 2,
+                    "price": 3400,
+                    "timesperday": 2,
+                    "daydrink": "1 vien",
+                    "number": 5,
+                    "daycount": 5,
+                    "description": "chống chỉ định cho trẻ em",
+                    "isDelete": 0,
+                    "created_at": "2017-09-21 05:33:49",
+                    "updated_at": "2017-09-21 05:33:49"
+                }
+            ],
+            "doctor": {
+                "id": 1,
+                "username": "admin",
+                "password": "123456",
+                "fullname": "",
+                "stringlogin": "",
+                "role_id": 1,
+                "image": "",
+                "created_at": null,
+                "updated_at": null
+            },
+            "patient": {
+                "id": 2,
+                "created_at": null,
+                "updated_at": null,
+                "name": "Trần Văn",
+                "code": "BN2017081615522",
+                "sex": 2,
+                "weight": 70,
+                "birthday": "02/07/1995 12:16:01",
+                "phone": "0122321254",
+                "address": "Quang trung",
+                "diagnosis": "Nhức đầu",
+                "employee_id": "1",
+                "status_id": 1
+            }
+        },
+        {
+            "id": 2,
+            "patient_id": 2,
+            "enclitic_id": 1,
+            "billdate": "21/09/2017 05:33:49",
+            "symptom": "Ngay 2209",
+            "diagnosis_id": 1,
+            "subdiagnosis": "Ngay 2109",
+            "introduction": "tai kham lai Ngay 2209",
+            "nextdate": "30/10/2017",
+            "index": 2,
+            "doctor_id": 1,
+            "dispenser_id": 2,
+            "dispensedatetime": "2",
+            "created_at": "2017-09-21 05:33:49",
+            "updated_at": "2017-09-21 05:33:49",
+            "details": [],
+            "doctor": {
+                "id": 1,
+                "username": "admin",
+                "password": "123456",
+                "fullname": "",
+                "stringlogin": "",
+                "role_id": 1,
+                "image": "",
+                "created_at": null,
+                "updated_at": null
+            },
+            "patient": {
+                "id": 2,
+                "created_at": null,
+                "updated_at": null,
+                "name": "Trần Văn",
+                "code": "BN2017081615522",
+                "sex": 2,
+                "weight": 70,
+                "birthday": "02/07/1995 12:16:01",
+                "phone": "0122321254",
+                "address": "Quang trung",
+                "diagnosis": "Nhức đầu",
+                "employee_id": "1",
+                "status_id": 1
+            }
+        }
+    ],
+    "code": 200
+}
 
 ######param nao can update thi truyen len, khong can thi thoi
 }
@@ -261,3 +451,34 @@ Return {
     "message": "Bill deleted success.",
     "code": 200
 }
+
+
+#### importmedicine
+#create
+    http://phongmach.dev/api/v1/importMedicine
+    METHOD: POST
+    {
+    "medicine_id": 1,
+    "amount": 56,
+    "importedprice": 50000
+    }
+    data return {
+        "message": "ImportMedicine was created",
+        "data": {
+            "medicine_id": 1,
+            "amount": 56,
+            "importedprice": 50000,
+            "importeddatetime": "21/09/2017 07:46:31",
+            "updated_at": "2017-09-21 07:46:31",
+            "created_at": "2017-09-21 07:46:31",
+            "id": 2
+        },
+        "code": 200
+    }
+#getImported
+    http://phongmach.dev/api/v1/getImported
+    METHOD: POST
+    {
+      "fromDate": "20/09/2017",
+      "toDate": "30/09/2017"
+    }

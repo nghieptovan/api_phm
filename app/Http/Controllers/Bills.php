@@ -44,6 +44,41 @@ class Bills extends Controller
         }
     }
 
+    public function getByPatient($patient_id) {
+        if ($patient_id !== null) {
+            $bills = Bill::where('patient_id', $patient_id)->get();
+            if(count($bills) > 0){
+              $bill_details = [];
+              foreach ($bills as $key => $value) {
+                $doctor = $this->getEmployee($value['doctor_id']);
+              $patient = $this->getPatient($value['patient_id']);
+                $bill_detail = $this->getDetail($value['id']);
+                $bills[$key]['details'] = $bill_detail;
+                $bills[$key]['doctor'] = $doctor;
+                $bills[$key]['patient'] = $patient;
+              }
+              return response()->json([
+                  'message' => 'Bills was found',
+                  'data' => $bills,
+                  'code' => 200
+              ]);
+            }else{
+              return response()->json([
+                  'message' => 'Data was not found',
+                  'data' => 'true',
+                  'code' => 201
+              ]);
+            }
+
+        } else {
+            return response()->json([
+                  'message' => 'Patient_id is not null',
+                  'data' => 'true',
+                  'code' => 201
+              ]);
+        }
+    }
+
     public function show($id) {
         $bill = Bill::find($id);
         if($bill !== NULL){
@@ -131,12 +166,10 @@ class Bills extends Controller
 
         			$bill_detail_create->save();
 
-        			array_push($bill_detail, $bill_detail_create);
         		}
-	        	$bill['bill_detail'] = $bill_detail;
 	          return response()->json([
 	              'message' => 'Bill was created',
-	              'data' => $bill,
+	              'data' => $bill->id,
 	              'code' => 200
 	          ]);
 	        }else{
