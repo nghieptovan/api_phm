@@ -2,31 +2,31 @@
 namespace App\Http\Controllers;
 
 use App\Medicine;
-use App\ImportMedicine;
+use App\ExportMedicine;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ImportMedicines extends Controller {
+class ExportMedicines extends Controller {
 
 	public function store(Request $request) {
-        $importMedicine = new ImportMedicine;        
+        $exportMedicine = new ExportMedicine;        
 
-        $importMedicine->medicine_id = $request->input('medicine_id');
-        $importMedicine->amount = $request->input('amount');
-        $importMedicine->importedprice = $request->input('importedprice');
-        $importMedicine->importeddatetime = date("d/m/Y h:i:s");
+        $exportMedicine->medicine_id = $request->input('medicine_id');
+        $exportMedicine->amount = $request->input('amount');
+        $exportMedicine->exportedprice = $request->input('exportedprice');
+        $exportMedicine->exporteddatetime = date("d/m/Y h:i:s");
 
-        $importMedicine->save();
+        $exportMedicine->save();
 
         $medicine = Medicine::find($request->input('medicine_id'));
-       	$medicine->amount += $importMedicine->amount;
+       	$medicine->amount -= $exportMedicine->amount;
        	$medicine->save(); 
 
-        if($importMedicine !== NULL){
+        if($exportMedicine !== NULL){
           return response()->json([
-              'message' => 'ImportMedicine was created',
-              'data' => $importMedicine,
+              'message' => 'ExportMedicine was created',
+              'data' => $exportMedicine,
               'code' => 200
           ]);
         }else{
@@ -37,25 +37,25 @@ class ImportMedicines extends Controller {
         }
     }
 
-    public function getImported(Request $request) {
+    public function getExported(Request $request) {
         $fromDate = date($request->input('fromDate'));
         $toDate = date($request->input('toDate'));
-        $imported = ImportMedicine::whereBetween('importeddatetime',  [$fromDate, $toDate])->get(); 
-        if(count($imported) > 0){
-        	foreach ($imported as $key => $value) {
+        $exported = ExportMedicine::whereBetween('exporteddatetime',  [$fromDate, $toDate])->get(); 
+        if(count($exported) > 0){
+        	foreach ($exported as $key => $value) {
         		$medicine = Medicine::find($value['medicine_id']);
 
-        		$imported[$key]['medicine'] = $medicine;
+        		$exported[$key]['medicine'] = $medicine;
         	}
         	return response()->json([
-              'message' => 'ImportMedicines was found',
-              'data' => $imported,
+              'message' => 'ExportMedicine was found',
+              'data' => $exported,
               'code' => 200
           	]);
 
         }else{
         	return response()->json([
-              'message' => 'ImportMedicines could not found',
+              'message' => 'ExportMedicine could not found',
               'data' => 'true',
               'code' => 200
           	]);
@@ -63,15 +63,15 @@ class ImportMedicines extends Controller {
     }
 
     public function destroy($id) {
-        $imported = ImportMedicine::find($id);
-        $medicine = Medicine::find($imported['medicine_id']);
-        $medicine->amount -= $imported['amount'];
+        $exported = ExportMedicine::find($id);
+        $medicine = Medicine::find($exported['medicine_id']);
+        $medicine->amount += $exported['amount'];
         $medicine->save(); 
 
-        $imported->delete();
+        $exported->delete();
         
         return response()->json([
-            'message' => 'ImportMedicine deleted success.',
+            'message' => 'ExportMedicine deleted success.',
             'data' => 'true',
             'code' => 200
         ]);

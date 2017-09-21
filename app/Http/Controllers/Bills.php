@@ -6,6 +6,7 @@ use App\Bill;
 use App\BillDetail;
 use App\Patient;
 use App\Employee;
+use App\Enclitic;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -148,8 +149,12 @@ class Bills extends Controller
         $bill->dispensedatetime = '';
         $bill_detail_input = $request->input('bill_detail');
         if(count($bill_detail_input) > 0){
-        	$bill->save();
-        	echo $bill->id;
+            $bill->save();
+            
+            $enclitic = Enclitic::find($bill->enclitic_id);
+            $enclitic->status_id = 3;
+            $enclitic->save();
+
         	if($bill !== NULL){
         		$bill_detail = [];
         		foreach ($bill_detail_input as $key => $value) {

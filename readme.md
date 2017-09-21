@@ -226,6 +226,28 @@ POST
     "status_id": 1
     "date": "21/09/2017 04:27:20" (co thi get date, khong co thi lay theo date hien tai)
 }
+#TAKEMEDICINE
+ http://phongmach.dev/api/v1/enclitic/takeMedicine/{id}
+{
+	"dispenser_id": "1"
+}
+ METHOD: POST: doi status_id cua enclitic 3->4
+ tru amount trong medicine id,
+ create exportmedicine
+ {
+    "message": "Enclitic was updated.",
+    "data": {
+        "id": 5,
+        "patient_id": 1,
+        "employee_id": 1,
+        "status_id": 4,
+        "date": "21/09/2017 04:27:20",
+        "created_at": "2017-09-21 18:40:31",
+        "updated_at": "2017-09-21 18:46:17"
+    },
+    "code": 200
+}
+
 
 
 
@@ -243,14 +265,14 @@ METHOD: GET
 http://phongmach.dev/api/v1/bill
 METHOD: {POST}
 {
-  "patient_id": 3,
-    "billdate": "17/09/2017 11:11:51",
-    "symptom": "Ngay 2109",
+    "patient_id": 2,
+    "billdate": "22/09/2017 11:11:51",
+    "symptom": "Ngay 2209",
     "diagnosis_id": 1,
-    "subdiagnosis": "Ngay 2109",
+    "subdiagnosis": "Ngay 2209",
     "introduction": "tai kham lai Ngay 2209",
     "nextdate": "30/10/2017",
-    "index": 2,
+    "index": 3,
     "doctor_id": 1,
     "dispenser_id": 0,
     "dispensedatetime": "",
@@ -455,7 +477,7 @@ Return {
 
 #### importmedicine
 #create
-    http://phongmach.dev/api/v1/importMedicine
+    http://phongmach.dev/api/v1/import/importMedicine
     METHOD: POST
     {
     "medicine_id": 1,
@@ -476,9 +498,59 @@ Return {
         "code": 200
     }
 #getImported
-    http://phongmach.dev/api/v1/getImported
+    http://phongmach.dev/api/v1/import/getImported
     METHOD: POST
     {
       "fromDate": "20/09/2017",
       "toDate": "30/09/2017"
     }
+#deleteImported
+    http://phongmach.dev/api/v1/import/delete/{id}  
+    METHOD: POST
+    datareturn
+    {
+    "message": "ImportMedicine deleted success.",
+    "data": "true",
+    "code": 200
+    }   
+
+####export Medicine
+#create
+    http://phongmach.dev/api/v1/export/exportMedicine
+    METHOD: POST
+    {
+    "medicine_id": 1,
+    "amount": 56,
+    "exportedprice": 50000
+    }
+    data return {
+        {
+            "message": "ExportMedicine was created",
+            "data": {
+                "medicine_id": 1,
+                "amount": 5,
+                "exportedprice": 50000,
+                "exporteddatetime": "21/09/2017 06:34:28",
+                "updated_at": "2017-09-21 18:34:28",
+                "created_at": "2017-09-21 18:34:28",
+                "id": 1
+            },
+            "code": 200
+        }
+    }
+#getExported
+    http://phongmach.dev/api/v1/export/getExported
+    METHOD: POST
+    {
+      "fromDate": "20/09/2017",
+      "toDate": "30/09/2017"
+    }
+#deleteExported
+    http://phongmach.dev/api/v1/export/delete/{id}  
+    METHOD: POST
+    datareturn
+    {
+    "message": "ImportMedicine deleted success.",
+    "data": "true",
+    "code": 200
+    }   

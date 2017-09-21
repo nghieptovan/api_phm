@@ -33,7 +33,7 @@ Route::post('/api/v1/diagnosis/delete/{id}', 'Diagnosises@destroy');
 #enclitic
 Route::get('/api/v1/enclitic/{id?}', 'Enclitics@index');
 Route::post('/api/v1/enclitic/getList', 'Enclitics@getList');
-Route::post('/api/v1/enclitic/{id}', 'Enclitics@takeMedicine');
+Route::post('/api/v1/enclitic/takeMedicine/{id}', 'Enclitics@takeMedicine');
 Route::post('/api/v1/enclitic', 'Enclitics@store');
 // Route::post('/api/v1/enclitic/{id}', 'Enclitics@update');
 Route::post('/api/v1/enclitic/delete/{id}', 'Enclitics@destroy');
@@ -110,9 +110,15 @@ Route::post('/api/v1/bill/delete/{id}', 'Bills@destroy');
 
 
 #ImportMedicine
-Route::post('/api/v1/importMedicine', 'ImportMedicines@store');
-Route::post('/api/v1/getImported', 'ImportMedicines@getImported');
+Route::post('/api/v1/import/importMedicine', 'ImportMedicines@store');
+Route::post('/api/v1/import/getImported', 'ImportMedicines@getImported');
+Route::post('/api/v1/import/delete/{id}', 'ImportMedicines@destroy');
 
+
+#ExportMedicine
+Route::post('/api/v1/export/exportMedicine', 'ExportMedicines@store');
+Route::post('/api/v1/export/getExported', 'ExportMedicines@getExported');
+Route::post('/api/v1/export/delete/{id}', 'ExportMedicines@destroy');
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
