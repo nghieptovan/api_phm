@@ -145,12 +145,14 @@ class Bills extends Controller
         $bill->nextdate = $request->input('nextdate');
         $bill->index = $request->input('index');
         $bill->doctor_id = $request->input('doctor_id');
+        $bill->examinationprice = $request->input('examinationprice');
         $bill->dispenser_id = 0;
         $bill->dispensedatetime = '';
+
         $bill_detail_input = $request->input('bill_detail');
         if(count($bill_detail_input) > 0){
             $bill->save();
-            
+
             $enclitic = Enclitic::find($bill->enclitic_id);
             $enclitic->status_id = 3;
             $enclitic->save();

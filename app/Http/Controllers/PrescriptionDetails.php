@@ -68,7 +68,7 @@ class PrescriptionDetails extends Controller
             return response()->json([
               'message' => 'PrescriptionDetail was created.',
               'data' => $returnList,
-              'code' => 201
+              'code' => 200
           ]);
           }
         }else{
@@ -132,7 +132,7 @@ class PrescriptionDetails extends Controller
             return response()->json([
               'message' => 'PrescriptionDetail was created.',
               'data' => $returnList,
-              'code' => 201
+              'code' => 200
           ]);
           }
         }else{

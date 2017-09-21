@@ -97,7 +97,7 @@ class Enclitics extends Controller
             $billDetails = BillDetail::where('bill_id', $bill->id)->get();
             foreach ($billDetails as $key => $value) {  
                 
-                $totalDrug = $value->timesperday * $value->daycount;
+                $totalDrug = $value->timesperday * $value->daycount * $value->number;
     
                 // echo $value->medicine_id.'----'.$totalDrug;
                 $medicine = Medicine::find($value->medicine_id);

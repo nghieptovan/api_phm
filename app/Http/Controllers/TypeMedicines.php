@@ -53,6 +53,7 @@ class TypeMedicines extends Controller
         }else{
           return response()->json([
               'message' => 'Could not create TypeMedicine',
+              'data' => 'true',
               'code' => 201
           ]);
         }
@@ -75,7 +76,8 @@ class TypeMedicines extends Controller
     	}else{
     		return response()->json([
               'message' => 'Can not find TypeMedicine with id = '.$id,
-              'code' => 202
+              'data' => 'true',
+              'code' => 201
           ]);
     	}
     }
@@ -92,6 +94,7 @@ class TypeMedicines extends Controller
         //
         return response()->json([
             'message' => 'TypeMedicine deleted success.',
+            'data' => 'true',
             'code' => 200
         ]);
     }
