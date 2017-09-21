@@ -7,6 +7,8 @@ use App\BillDetail;
 use App\Patient;
 use App\Employee;
 use App\Enclitic;
+use App\Config;
+use App\Medicine;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -134,6 +136,8 @@ class Bills extends Controller
      * @return Response
      */
     public function store(Request $request) {
+        $config = Config::where('key', 'tienkham')->get();
+        $priceExam = $config[0]->value;
         $bill = new Bill;
         $bill->patient_id = $request->input('patient_id');
         $bill->enclitic_id = $request->input('enclitic_id');        
@@ -145,11 +149,20 @@ class Bills extends Controller
         $bill->nextdate = $request->input('nextdate');
         $bill->index = $request->input('index');
         $bill->doctor_id = $request->input('doctor_id');
-        $bill->examinationprice = $request->input('examinationprice');
+        $bill->examinationprice = $priceExam;
         $bill->dispenser_id = 0;
         $bill->dispensedatetime = '';
 
         $bill_detail_input = $request->input('bill_detail');
+
+        if($bill->nextdate !== ''){
+          $enclitic = new Enclitic;
+          $enclitic->status_id = 2;
+          $enclitic->patient_id = $bill->patient_id;
+          $enclitic->employee_id = $bill->doctor_id;
+          $enclitic->date = $bill->nextdate;
+          $enclitic->save();
+        }
         if(count($bill_detail_input) > 0){
             $bill->save();
 
@@ -160,16 +173,19 @@ class Bills extends Controller
         	if($bill !== NULL){
         		$bill_detail = [];
         		foreach ($bill_detail_input as $key => $value) {
+              $medicine_id_detail = $value['medicine_id'];
+              $getMedicineDetail = Medicine::find($medicine_id_detail);
+
         			$bill_detail_create = new BillDetail;
 
         			$bill_detail_create->bill_id = $bill->id;
         			$bill_detail_create->medicine_id = $value['medicine_id'];
-        			$bill_detail_create->price = $value['price'];
+        			$bill_detail_create->price = $getMedicineDetail->sellprice;
+              $bill_detail_create->description = $getMedicineDetail->description;
         			$bill_detail_create->timesperday = $value['timesperday'];
         			$bill_detail_create->daydrink = $value['daydrink'];
         			$bill_detail_create->number = $value['number'];
-        			$bill_detail_create->daycount = $value['daycount'];
-        			$bill_detail_create->description = $value['description']; 
+        			$bill_detail_create->daycount = $value['daycount'];        			
 
         			$bill_detail_create->save();
 

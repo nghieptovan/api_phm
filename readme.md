@@ -192,19 +192,19 @@ METHOD:POST
   "prescription_detail": [
     {
       "prescription_id": 3,
-          "medicine_id": 1,
-          "daydrink": "10 vien",
-          "timesperday": 3,
-          "daycount": 20,
-          "number": 60
+      "medicine_id": 1,
+      "daydrink": "10 vien",
+      "timesperday": 3,
+      "daycount": 20,
+      "number": 60
     },
     {
       "prescription_id": 3,
-          "medicine_id": 2,
-          "daydrink": "1vien",
-          "timesperday": 3,
-          "daycount": 10,
-          "number": 30
+      "medicine_id": 2,
+      "daydrink": "1vien",
+      "timesperday": 3,
+      "daycount": 10,
+      "number": 30
     }
   ]
 }
@@ -215,7 +215,7 @@ http://phongmach.dev/api/v1/enclitic/getList
 POST
 {
   "status_id": 1,
-  "date": "18/09/2017"
+  "date": "22/09/2017"
 }
  #CREATE 
  http://phongmach.dev/api/v1/enclitic
