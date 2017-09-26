@@ -17,12 +17,13 @@ class Medicine extends Model
         return $this->belongsTo('App\BehaviourMedicine', 'behaviourmedicine_id');
     }
 
-    public function PrescriptionDetail(){
-        return $this->belongsTo('App\PrescriptionDetail');
-    }
-
     public function BillDetail()
     {
         return $this->hasOne('App\BillDetail', 'id');
+    }
+
+    public function PrescriptionDetail()
+    {
+        return $this->hasOne('App\PrescriptionDetail', 'id');
     }
 }

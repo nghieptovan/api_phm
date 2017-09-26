@@ -19,7 +19,7 @@ class PrescriptionDetails extends Controller
      */
     public function index($id = null) {
         if ($id == null) {
-            $prescriptions = PrescriptionDetail::orderBy('id', 'asc')->get();
+            $prescriptions = PrescriptionDetail::with('Medicine')->orderBy('id', 'asc')->get();
             if(count($prescriptions) > 0){
               return response()->json([
                   'message' => 'PrescriptionDetails was found',
@@ -82,7 +82,7 @@ class PrescriptionDetails extends Controller
 
     public function getPrescriptionDetail($prescription_id) {
         if ($prescription_id !== null) {
-            $prescriptions = PrescriptionDetail::where('prescription_id', $prescription_id)->get();
+            $prescriptions = PrescriptionDetail::where('prescription_id', $prescription_id)->with('Medicine')->get();
             if(count($prescriptions) > 0){
               return response()->json([
                   'message' => 'PrescriptionDetails was found',
@@ -151,7 +151,7 @@ class PrescriptionDetails extends Controller
      * @return Response
      */
     public function show($id) {
-        $prescription = PrescriptionDetail::find($id);
+        $prescription = PrescriptionDetail::with('Medicine')->find($id);
         if($prescription !== NULL){
           return response()->json([
               'message' => 'PrescriptionDetail was found',
