@@ -49,7 +49,7 @@ class Bills extends Controller
 
     public function getByPatient($patient_id) {
         if ($patient_id !== null) {
-            $bills = Bill::where('patient_id', $patient_id)->get();
+            $bills = Bill::where('patient_id', $patient_id)->with('Diagnosis')->get();
             if(count($bills) > 0){
               $bill_details = [];
               foreach ($bills as $key => $value) {
