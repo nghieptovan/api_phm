@@ -22,7 +22,7 @@ class PrescriptionDetails extends Controller
             $prescriptions = PrescriptionDetail::with('Medicine')->orderBy('id', 'asc')->get();
             if(count($prescriptions) > 0){
               return response()->json([
-                  'message' => 'PrescriptionDetails was found',
+                  'message' => 'PrescriptionDetails was found.',
                   'data' => $prescriptions,
                   'code' => 200
               ]);
