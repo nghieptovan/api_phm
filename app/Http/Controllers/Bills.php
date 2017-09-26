@@ -146,6 +146,7 @@ class Bills extends Controller
         $bill->diagnosis_id = $request->input('diagnosis_id');
         $bill->subdiagnosis = $request->input('subdiagnosis');
         $bill->introduction = $request->input('introduction');
+        $bill->totalmoney = $request->input('totalmoney');
         $bill->nextdate = $request->input('nextdate');
         $bill->index = $request->input('index');
         $bill->doctor_id = $request->input('doctor_id');
@@ -239,6 +240,11 @@ class Bills extends Controller
 	        if(isset($request->dispensedatetime)){
 	        	$bill->dispensedatetime = $request->input('dispensedatetime');
 	        }
+
+          if(isset($request->totalmoney)){
+            $bill->totalmoney = $request->input('totalmoney');
+          }
+          
 
 	        if(isset($request->bill_detail)){
 	        	$bill_detail_input = $request->input('bill_detail');
