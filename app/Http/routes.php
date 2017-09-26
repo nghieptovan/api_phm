@@ -66,6 +66,24 @@ Route::post('/api/v1/behaviourmedicine', 'BehaviourMedicines@store');
 Route::post('/api/v1/behaviourmedicine/{id}', 'BehaviourMedicines@update');
 Route::post('/api/v1/behaviourmedicine/delete/{id}', 'BehaviourMedicines@destroy');
 
+#Drug
+Route::get('/api/v1/drug/{id?}', 'Drugs@index');
+Route::post('/api/v1/drug', 'Drugs@store');
+Route::post('/api/v1/drug/{id}', 'Drugs@update');
+Route::post('/api/v1/drug/delete/{id}', 'Drugs@destroy');
+
+
+#patentmedicine
+Route::get('/api/v1/patentmedicine/{id?}', 'PatentMedicines@index');
+Route::post('/api/v1/patentmedicine', 'PatentMedicines@store');
+Route::post('/api/v1/patentmedicine/{id}', 'PatentMedicines@update');
+Route::post('/api/v1/patentmedicine/delete/{id}', 'PatentMedicines@destroy');
+
+#unittomedicine
+Route::get('/api/v1/unittomedicine/{id?}', 'Units@index');
+Route::post('/api/v1/unittomedicine', 'Units@store');
+Route::post('/api/v1/unittomedicine/{id}', 'Units@update');
+Route::post('/api/v1/unittomedicine/delete/{id}', 'Units@destroy');
 
 #status
 Route::get('/api/v1/status/{id?}', 'Statuses@index');

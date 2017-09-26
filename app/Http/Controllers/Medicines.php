@@ -68,6 +68,12 @@ class Medicines extends Controller {
 
         $medicine->behaviourmedicine_id = $request->input('behaviourmedicine_id');
 
+        $medicine->drug_id = $request->input('drug_id');
+
+        $medicine->patentmedicine_id = $request->input('patentmedicine_id');
+
+        $medicine->unit_id = $request->input('unit_id');
+
         $medicine->sellprice = $request->input('sellprice');
 
         $medicine->importedprice = $request->input('importedprice');
@@ -110,6 +116,15 @@ class Medicines extends Controller {
 
         if(isset($request->behaviourmedicine_id))
           $medicine->behaviourmedicine_id = $request->input('behaviourmedicine_id');
+
+        if(isset($request->drug_id))
+          $medicine->drug_id = $request->input('drug_id');
+
+        if(isset($request->patentmedicine_id))
+          $medicine->patentmedicine_id = $request->input('patentmedicine_id');
+
+        if(isset($request->unit_id))
+          $medicine->unit_id = $request->input('unit_id');
 
         if(isset($request->sellprice))
           $medicine->sellprice = $request->input('sellprice');
