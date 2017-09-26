@@ -54,7 +54,7 @@ class Bills extends Controller
               $bill_details = [];
               foreach ($bills as $key => $value) {
                 $doctor = $this->getEmployee($value['doctor_id']);
-              $patient = $this->getPatient($value['patient_id']);
+                $patient = $this->getPatient($value['patient_id']);
                 $bill_detail = $this->getDetail($value['id']);
                 $bills[$key]['details'] = $bill_detail;
                 $bills[$key]['doctor'] = $doctor;
@@ -122,7 +122,7 @@ class Bills extends Controller
     	}
     }
     public function getDetail($id){
-    	$detail = BillDetail::where('bill_id', $id)->get();
+    	$detail = BillDetail::where('bill_id', $id)->with('Medicine')->get();
     	if(count($detail) > 0){
     		return $detail;
     	}else{

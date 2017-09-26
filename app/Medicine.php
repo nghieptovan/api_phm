@@ -20,4 +20,9 @@ class Medicine extends Model
     public function PrescriptionDetail(){
         return $this->belongsTo('App\PrescriptionDetail');
     }
+
+    public function BillDetail()
+    {
+        return $this->hasOne('App\BillDetail', 'id');
+    }
 }
