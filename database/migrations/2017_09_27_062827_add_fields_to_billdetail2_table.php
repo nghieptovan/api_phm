@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFieldsToBilldetailTable extends Migration
+class AddFieldsToBilldetail2Table extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddFieldsToBilldetailTable extends Migration
     {
         Schema::table('billdetail', function (Blueprint $table) {
             //
-            $table->dropColumn('number');
-            $table->dropColumn('daycount');
+            $table->float('number');
+            $table->float('daycount');
         });
     }
 
