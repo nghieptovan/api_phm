@@ -8,4 +8,8 @@ class Unit extends Model
 {
     //
      protected $table = 'unit';
+     public function Medicine()
+    {
+        return $this->hasOne('App\Medicine', id);
+    }
 }

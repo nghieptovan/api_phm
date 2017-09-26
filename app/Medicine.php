@@ -17,6 +17,10 @@ class Medicine extends Model
         return $this->belongsTo('App\BehaviourMedicine', 'behaviourmedicine_id');
     }
 
+    public function Unit(){
+        return $this->belongsTo('App\Unit', 'unit_id');
+    }
+
     public function BillDetail()
     {
         return $this->hasOne('App\BillDetail', 'id');
