@@ -10,7 +10,7 @@ class Medicines extends Controller {
 
     public function index($id = null) {
         if ($id == null) {
-            $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit')->orderBy('id', 'asc')->get();
+            $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->orderBy('id', 'asc')->get();
             if(count($medicines) > 0){
               return response()->json([
                   'message' => 'Medicines was found',
@@ -31,7 +31,7 @@ class Medicines extends Controller {
     }
 
     public function show($id) {
-        $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit')->find($id);
+        $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($id);
         if($medicines !== NULL){
           return response()->json([
               'message' => 'Medicine was found',

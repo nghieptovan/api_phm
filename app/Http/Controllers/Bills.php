@@ -137,19 +137,62 @@ class Bills extends Controller
      */
     public function store(Request $request) {
         $config = Config::where('key', 'tienkham')->get();
-        $priceExam = $config[0]->value;
+        if(count($config) > 0){
+          $priceExam = $config[0]->value;
+        }else{
+          $priceExam = '120000';
+        }
+        
         $bill = new Bill;
         $bill->patient_id = $request->input('patient_id');
         $bill->enclitic_id = $request->input('enclitic_id');        
         $bill->billdate = date("d/m/Y h:i:s");
-        $bill->symptom = $request->input('symptom');
-        $bill->diagnosis_id = $request->input('diagnosis_id');
-        $bill->subdiagnosis = $request->input('subdiagnosis');
-        $bill->introduction = $request->input('introduction');
-        $bill->totalmoney = $request->input('totalmoney');
-        $bill->nextdate = $request->input('nextdate');
-        $bill->index = $request->input('index');
-        $bill->doctor_id = $request->input('doctor_id');
+        if(isset($request->symptom)){
+          $bill->symptom = $request->input('symptom');
+        }else{
+          $bill->symptom = '';
+        }
+        if(isset($request->diagnosis_id)){
+          $bill->diagnosis_id = $request->input('diagnosis_id');
+        }else{
+          $bill->diagnosis_id = 0;
+        }
+        if(isset($request->subdiagnosis)){
+          $bill->subdiagnosis = $request->input('subdiagnosis');
+        }else{
+          $bill->subdiagnosis = '';
+        }
+        if(isset($request->maindiagnosis)){
+          $bill->maindiagnosis = $request->input('maindiagnosis');
+        }else{
+          $bill->maindiagnosis = '';
+        }
+        if(isset($request->introduction)){
+          $bill->introduction = $request->input('introduction');
+        }else{
+          $bill->introduction = '';
+        }
+        if(isset($request->totalmoney)){
+          $bill->totalmoney = $request->input('totalmoney');
+        }else{
+          $bill->totalmoney = '';
+        }
+        if(isset($request->nextdate)){
+          $bill->nextdate = $request->input('nextdate');
+        }else{
+          $bill->nextdate = '';
+        }
+        if(isset($request->index)){
+          $bill->index = $request->input('index');
+        }else{
+          $bill->index = 0;
+        }
+        if(isset($request->doctor_id)){
+          $bill->doctor_id = $request->input('doctor_id');
+        }else{
+          $bill->doctor_id = 0;
+        }
+        
         $bill->examinationprice = $priceExam;
         $bill->dispenser_id = 0;
         $bill->dispensedatetime = '';
@@ -225,6 +268,9 @@ class Bills extends Controller
 	        if(isset($request->subdiagnosis)){
 	        	$bill->subdiagnosis = $request->input('subdiagnosis');
 	        }
+          if(isset($request->maindiagnosis)){
+            $bill->maindiagnosis = $request->input('maindiagnosis');
+          }
 	        if(isset($request->introduction)){
 	        	$bill->introduction = $request->input('introduction');
 	        }

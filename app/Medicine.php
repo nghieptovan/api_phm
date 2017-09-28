@@ -30,4 +30,15 @@ class Medicine extends Model
     {
         return $this->hasOne('App\PrescriptionDetail', 'id');
     }
+
+    public function Drug()
+    {
+        return $this->belongsTo('App\Drug', 'drug_id');
+    }
+
+    public function PatentMedicine()
+    {
+        return $this->belongsTo('App\PatentMedicine', 'patentmedicine_id');
+    }
+
 }
