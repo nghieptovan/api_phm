@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Prescription;
 use App\PrescriptionDetail;
+use App\Medicine;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -19,7 +20,15 @@ class PrescriptionDetails extends Controller
      */
     public function index($id = null) {
         if ($id == null) {
-            $prescriptions = PrescriptionDetail::with('Medicine')->orderBy('id', 'asc')->get();
+            $prescriptions = PrescriptionDetail::orderBy('id', 'asc')->get();
+            foreach ($prescriptions as $key => $value) {
+              # code...
+              $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($value->medicine_id);
+              if(count($medicines) == 1){
+                $prescriptions[$key]['medicine'] = $medicines;
+              }
+            }
+            
             if(count($prescriptions) > 0){
               return response()->json([
                   'message' => 'PrescriptionDetails was found.',
@@ -82,7 +91,16 @@ class PrescriptionDetails extends Controller
 
     public function getPrescriptionDetail($prescription_id) {
         if ($prescription_id !== null) {
-            $prescriptions = PrescriptionDetail::where('prescription_id', $prescription_id)->with('Medicine')->get();
+            $prescriptions = PrescriptionDetail::where('prescription_id', $prescription_id)->get();
+
+            foreach ($prescriptions as $key => $value) {
+              # code...
+              $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($value->medicine_id);
+              if(count($medicines) == 1){
+                $prescriptions[$key]['medicine'] = $medicines;
+              }
+            }
+
             if(count($prescriptions) > 0){
               return response()->json([
                   'message' => 'PrescriptionDetails was found',
@@ -151,7 +169,12 @@ class PrescriptionDetails extends Controller
      * @return Response
      */
     public function show($id) {
-        $prescription = PrescriptionDetail::with('Medicine')->find($id);
+        $prescription = PrescriptionDetail::find($id);
+
+        $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($prescription->medicine_id);
+              if(count($medicines) == 1){
+                $prescription['medicine'] = $medicines;
+              }
         if($prescription !== NULL){
           return response()->json([
               'message' => 'PrescriptionDetail was found',
