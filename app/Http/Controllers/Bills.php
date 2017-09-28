@@ -122,9 +122,17 @@ class Bills extends Controller
     	}
     }
     public function getDetail($id){
-    	$detail = BillDetail::where('bill_id', $id)->with('Medicine')->get();
-    	if(count($detail) > 0){
-    		return $detail;
+    	$details = BillDetail::where('bill_id', $id)->get();
+      foreach ($details as $key => $value) {
+        # code...
+         $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($value->medicine_id);
+        if(count($medicines) == 1){
+          $details[$key]['medicine'] = $medicines;
+        }
+      }
+     
+    	if(count($details) > 0){
+    		return $details;
     	}else{
     		return [];
     	}
