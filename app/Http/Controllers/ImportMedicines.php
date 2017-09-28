@@ -43,7 +43,7 @@ class ImportMedicines extends Controller {
         $imported = ImportMedicine::whereBetween('importeddatetime',  [$fromDate, $toDate])->get(); 
         if(count($imported) > 0){
         	foreach ($imported as $key => $value) {
-        		$medicine = Medicine::find($value['medicine_id']);
+        		$medicine = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($value['medicine_id']);
 
         		$imported[$key]['medicine'] = $medicine;
         	}

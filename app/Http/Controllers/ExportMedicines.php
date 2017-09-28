@@ -43,7 +43,7 @@ class ExportMedicines extends Controller {
         $exported = ExportMedicine::whereBetween('exporteddatetime',  [$fromDate, $toDate])->get(); 
         if(count($exported) > 0){
         	foreach ($exported as $key => $value) {
-        		$medicine = Medicine::find($value['medicine_id']);
+        		$medicine = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($value['medicine_id']);
 
         		$exported[$key]['medicine'] = $medicine;
         	}
