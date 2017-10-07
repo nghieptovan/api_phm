@@ -54,7 +54,7 @@ class Medicines extends Controller {
      */
     public function store(Request $request) {
         $medicine = new Medicine;
-        $medicine->code = $request->input('code');
+        $medicine->code = date("d/m/Y-h:i:s");
 
         $medicine->name = $request->input('name');
 
@@ -97,7 +97,7 @@ class Medicines extends Controller {
     public function update(Request $request, $id) {
         $medicine = Medicine::find($id);
         if(isset($request->code))
-          $medicine->code = $request->input('code');
+          $medicine->code = date("d/m/Y-h:i:s");
 
         if(isset($request->name))
           $medicine->name = $request->input('name');
