@@ -54,6 +54,11 @@ class Bills extends Controller
         $doctor_id = $request->input('doctor_id');  
         $bills = Bill::where('doctor_id', $doctor_id)->whereBetween('billdate',  [$fromDate, $toDate])->get();
         if(count($bills)>0){
+              foreach ($bills as $key => $value) {        
+                $getMoneyDrug = $this->getMoneyDrug($value['id']);
+                $bills[$key]['totalmoneydrug'] = $getMoneyDrug;           
+              }
+          
            return response()->json([
                   'message' => 'Bills was found',
                   'data' => $bills,
@@ -147,19 +152,13 @@ class Bills extends Controller
     }
     public function getMoneyDrug($id){
       $details = BillDetail::where('bill_id', $id)->get();
+      $moneyDrug = 0;
       foreach ($details as $key => $value) {
-        # code...
-         $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($value->medicine_id);
-        if(count($medicines) == 1){
-          $details[$key]['medicine'] = $medicines;
-        }
+        $amount = $value->number * $value->daycount * $value->timesperday;
+        $moneyDrug += $value->price * $amount;
       }
-     
-      if(count($details) > 0){
-        return $details;
-      }else{
-        return [];
-      }
+      return $moneyDrug;
+      
     }
 
     public function getEmployee($id){
