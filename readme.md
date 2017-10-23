@@ -565,3 +565,18 @@ Method: POST
     "fromDate": "20/09/2017",
     "toDate": "30/09/2017"
 }
+#GETBILL REPORT
+
+http://phongmach.dev/api/v1/bill/getBillReport
+Method: POST
+Nếu có doctor_id
+{
+    "fromDate": "20/09/2017",
+    "toDate": "30/09/2017",
+    "doctor_id": 5
+}
+Không có doctor_id
+{
+    "fromDate": "20/09/2017",
+    "toDate": "30/09/2017",
+}

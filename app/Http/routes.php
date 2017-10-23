@@ -123,6 +123,7 @@ Route::post('/api/v1/config/delete/{id}', 'Configs@destroy');
 #Bill
 Route::get('/api/v1/bill/{id?}', 'Bills@index');
 Route::get('/api/v1/bill/getByPatient/{patient_id}', 'Bills@getByPatient');
+Route::post('/api/v1/bill/getBillReport', 'Bills@getBillReport');
 Route::post('/api/v1/bill', 'Bills@store');
 Route::post('/api/v1/bill/{id}', 'Bills@update');
 Route::post('/api/v1/bill/delete/{id}', 'Bills@destroy');

@@ -47,6 +47,46 @@ class Bills extends Controller
         }
     }
 
+    public function getBillReport(Request $request) {
+      $fromDate = date($request->input('fromDate'));
+      $toDate = date($request->input('toDate'));
+      if(isset($request->doctor_id)){
+        $doctor_id = $request->input('doctor_id');  
+        $bills = Bill::where('doctor_id', $doctor_id)->whereBetween('billdate',  [$fromDate, $toDate])->get();
+        if(count($bills)>0){
+           return response()->json([
+                  'message' => 'Bills was found',
+                  'data' => $bills,
+                  'code' => 200
+              ]);
+         }else{
+          return response()->json([
+                  'message' => 'Data was not found',
+                  'data' => 'true',
+                  'code' => 201
+              ]);
+         }       
+      }else{
+        $bills = Bill::whereBetween('billdate',  [$fromDate, $toDate])->get();
+        if(count($bills)>0){
+           return response()->json([
+                  'message' => 'Bills was found',
+                  'data' => $bills,
+                  'code' => 200
+              ]);
+         }else{
+          return response()->json([
+                  'message' => 'Data was not found',
+                  'data' => 'true',
+                  'code' => 201
+              ]);
+         }
+      }
+
+      
+
+    }
+
     public function getByPatient($patient_id) {
         if ($patient_id !== null) {
             $bills = Bill::where('patient_id', $patient_id)->with('Diagnosis')->get();
@@ -105,6 +145,23 @@ class Bills extends Controller
           ]);
         }
     }
+    public function getMoneyDrug($id){
+      $details = BillDetail::where('bill_id', $id)->get();
+      foreach ($details as $key => $value) {
+        # code...
+         $medicines = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($value->medicine_id);
+        if(count($medicines) == 1){
+          $details[$key]['medicine'] = $medicines;
+        }
+      }
+     
+      if(count($details) > 0){
+        return $details;
+      }else{
+        return [];
+      }
+    }
+
     public function getEmployee($id){
     	$employee = Employee::find($id);
     	if(count($employee) > 0){
@@ -185,6 +242,12 @@ class Bills extends Controller
         }else{
           $bill->totalmoney = '';
         }
+        if(isset($request->drugmoney)){
+          $bill->drugmoney = $request->input('drugmoney');
+        }else{
+          $bill->drugmoney = '';
+        }
+        
         if(isset($request->nextdate)){
           $bill->nextdate = $request->input('nextdate');
         }else{
@@ -298,7 +361,9 @@ class Bills extends Controller
           if(isset($request->totalmoney)){
             $bill->totalmoney = $request->input('totalmoney');
           }
-          
+          if(isset($request->drugmoney)){
+            $bill->drugmoney = $request->input('drugmoney');
+          }
 
 	        if(isset($request->bill_detail)){
 	        	$bill_detail_input = $request->input('bill_detail');
