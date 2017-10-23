@@ -60,6 +60,10 @@ class Bills extends Controller
 
                 $patient = $this->getPatient($value['patient_id']);   
                 $bills[$key]['patient'] = $patient;    
+
+
+                $doctor = $this->getEmployee($value['doctor_id']);
+                $bills[$key]['doctor'] = $doctor;
               }
           
            return response()->json([
@@ -82,7 +86,10 @@ class Bills extends Controller
                 $bills[$key]['totalmoneydrug'] = $getMoneyDrug;    
 
                 $patient = $this->getPatient($value['patient_id']);   
-                $bills[$key]['patient'] = $patient;    
+                $bills[$key]['patient'] = $patient;   
+
+                $doctor = $this->getEmployee($value['doctor_id']);
+                $bills[$key]['doctor'] = $doctor; 
               }
            return response()->json([
                   'message' => 'Bills was found',
