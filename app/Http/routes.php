@@ -50,6 +50,7 @@ Route::post('/api/v1/patient/delete/{id}', 'Patients@destroy');
 
 #medicines
 Route::get('/api/v1/medicine/{id?}', 'Medicines@index');
+Route::post('/api/v1/medicine/getReport', 'Medicines@getReport');
 Route::post('/api/v1/medicine', 'Medicines@store');
 Route::post('/api/v1/medicine/{id}', 'Medicines@update');
 Route::post('/api/v1/medicine/delete/{id}', 'Medicines@destroy');

@@ -554,3 +554,14 @@ Return {
     "data": "true",
     "code": 200
     }   
+
+
+
+#Get report medicine
+http://phongmach.dev/api/v1/medicine/getReport
+Method: POST
+
+{
+    "fromDate": "20/09/2017",
+    "toDate": "30/09/2017"
+}

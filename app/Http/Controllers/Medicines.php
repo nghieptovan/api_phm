@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Medicine;
+use App\ImportMedicine;
+use App\ExportMedicine;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -28,6 +30,51 @@ class Medicines extends Controller {
         } else {
             return $this->show($id);
         }
+    }
+
+    public function getReport(Request $request) {
+        $fromDate = date($request->input('fromDate'));
+        $toDate = date($request->input('toDate'));
+        
+
+        $imported = ImportMedicine::whereBetween('importeddatetime',  [$fromDate, $toDate])->groupBy('medicine_id')
+->selectRaw('sum(amount) as total_import , medicine_id')
+->get();
+        if(count($imported) > 0){
+          foreach ($imported as $key => $value) {
+            $medicine = Medicine::find($value['medicine_id']);
+
+            $imported[$key]['medicine'] = $medicine;
+          }
+          $dataReport['imported'] = [
+              'message' => 'ImportMedicines was found',
+              'data' => $imported
+          ];
+
+        }
+
+        $exported = ExportMedicine::whereBetween('exporteddatetime',  [$fromDate, $toDate])->groupBy('medicine_id')
+->selectRaw('sum(amount) as total_export , medicine_id')
+->get();
+
+        if(count($exported) > 0){
+          foreach ($exported as $key => $value) {
+            $medicine = Medicine::find($value['medicine_id']);
+
+            $exported[$key]['medicine'] = $medicine;
+          }
+          $dataReport['exported'] = [
+              'message' => 'ExportMedicines was found',
+              'data' => $exported
+          ];
+
+        }
+        
+        return response()->json([
+              'message' => 'Reportmedicine',
+              'data' => $dataReport,
+              'code' => 200
+        ]);  
     }
 
     public function show($id) {
