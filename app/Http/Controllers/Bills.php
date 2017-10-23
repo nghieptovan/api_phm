@@ -56,7 +56,10 @@ class Bills extends Controller
         if(count($bills)>0){
               foreach ($bills as $key => $value) {        
                 $getMoneyDrug = $this->getMoneyDrug($value['id']);
-                $bills[$key]['totalmoneydrug'] = $getMoneyDrug;           
+                $bills[$key]['totalmoneydrug'] = $getMoneyDrug;    
+
+                $patient = $this->getPatient($value['patient_id']);   
+                $bills[$key]['patient'] = $patient;    
               }
           
            return response()->json([
@@ -74,6 +77,13 @@ class Bills extends Controller
       }else{
         $bills = Bill::whereBetween('billdate',  [$fromDate, $toDate])->get();
         if(count($bills)>0){
+              foreach ($bills as $key => $value) {        
+                $getMoneyDrug = $this->getMoneyDrug($value['id']);
+                $bills[$key]['totalmoneydrug'] = $getMoneyDrug;    
+
+                $patient = $this->getPatient($value['patient_id']);   
+                $bills[$key]['patient'] = $patient;    
+              }
            return response()->json([
                   'message' => 'Bills was found',
                   'data' => $bills,
