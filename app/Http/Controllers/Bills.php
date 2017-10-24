@@ -48,11 +48,18 @@ class Bills extends Controller
     }
 
     public function getBillReport(Request $request) {
-      $fromDate = date($request->input('fromDate'));
-      $toDate = date($request->input('toDate'));
+
+      $fromDate = date('Y-m-d', strtotime($request->input('fromDate')));
+
+      $toDate = date('Y-m-d', strtotime($request->input('toDate')));
+
       if(isset($request->doctor_id)){
         $doctor_id = $request->input('doctor_id');  
-        $bills = Bill::where('doctor_id', $doctor_id)->whereBetween('billdate',  [$fromDate, $toDate])->get();
+        
+
+        $bills = Bill::where('doctor_id', $doctor_id)
+        ->whereBetween('billdate',  [$fromDate, $toDate])
+        ->get();
         if(count($bills)>0){
               foreach ($bills as $key => $value) {        
                 $getMoneyDrug = $this->getMoneyDrug($value['id']);
@@ -227,7 +234,8 @@ class Bills extends Controller
         $bill = new Bill;
         $bill->patient_id = $request->input('patient_id');
         $bill->enclitic_id = $request->input('enclitic_id');        
-        $bill->billdate = date("d/m/Y h:i:s");
+        $bill->billdate = date('Y-m-d');
+
         if(isset($request->symptom)){
           $bill->symptom = $request->input('symptom');
         }else{
