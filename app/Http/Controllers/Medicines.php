@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Medicine;
 use App\ImportMedicine;
 use App\ExportMedicine;
+use App\Drug;
+use App\PatentMedicine;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -37,7 +39,7 @@ class Medicines extends Controller {
         $toDate = date($request->input('toDate'));
         
 
-        $imported = ImportMedicine::whereBetween('importeddatetime',  [$fromDate, $toDate])->groupBy('medicine_id')
+        $imported = ImportMedicine::whereBetween('created_at',  [$fromDate, $toDate])->groupBy('medicine_id')
 ->selectRaw('sum(amount) as total_import , medicine_id')
 ->get();
         if(count($imported) > 0){
@@ -53,7 +55,7 @@ class Medicines extends Controller {
 
         }
 
-        $exported = ExportMedicine::whereBetween('exporteddatetime',  [$fromDate, $toDate])->groupBy('medicine_id')
+        $exported = ExportMedicine::whereBetween('created_at',  [$fromDate, $toDate])->groupBy('medicine_id')
 ->selectRaw('sum(amount) as total_export , medicine_id')
 ->get();
 
@@ -115,9 +117,32 @@ class Medicines extends Controller {
 
         $medicine->behaviourmedicine_id = $request->input('behaviourmedicine_id');
 
-        $medicine->drug_id = $request->input('drug_id');
+        if(isset($request->drug_name) && isset($request->drug_code)){
+          $drug = new Drug;
+          $drug->name = $request->input('drug_name');
+          $drug->code = $request->input('drug_code');
+          $drug->save();
 
-        $medicine->patentmedicine_id = $request->input('patentmedicine_id');
+          $medicine->drug_id = $drug->id;
+        }else{
+          if(isset($request->drug_id)){
+            $medicine->drug_id = $request->input('drug_id');
+          }
+        }
+
+        if(isset($request->patent_name) && isset($request->patent_code)){
+          $patentMedicine = new PatentMedicine;
+          $patentMedicine->name = $request->input('patent_name');
+          $patentMedicine->code = $request->input('patent_code');
+          $patentMedicine->save();
+
+          $medicine->patentmedicine_id = $patentMedicine->id;
+
+        }else{
+          if(isset($request->patentmedicine_id)){
+            $medicine->patentmedicine_id = $request->input('patentmedicine_id');
+          }
+        }      
 
         $medicine->unit_id = $request->input('unit_id');
 
