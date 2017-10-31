@@ -58,7 +58,7 @@ class Bills extends Controller
         
 
         $bills = Bill::where('doctor_id', $doctor_id)
-        ->whereBetween('billdate',  [$fromDate, $toDate])
+        ->whereBetween('created_at',  [$fromDate, $toDate])
         ->get();
         if(count($bills)>0){
               foreach ($bills as $key => $value) {        
@@ -86,7 +86,7 @@ class Bills extends Controller
               ]);
          }       
       }else{
-        $bills = Bill::whereBetween('billdate',  [$fromDate, $toDate])->get();
+        $bills = Bill::whereBetween('created_at',  [$fromDate, $toDate])->get();
         if(count($bills)>0){
               foreach ($bills as $key => $value) {        
                 $getMoneyDrug = $this->getMoneyDrug($value['id']);
@@ -234,7 +234,7 @@ class Bills extends Controller
         $bill = new Bill;
         $bill->patient_id = $request->input('patient_id');
         $bill->enclitic_id = $request->input('enclitic_id');        
-        $bill->billdate = date('Y-m-d');
+        $bill->billdate = date("d/m/Y h:i:s");        
 
         if(isset($request->symptom)){
           $bill->symptom = $request->input('symptom');
