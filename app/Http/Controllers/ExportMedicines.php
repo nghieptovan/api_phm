@@ -40,9 +40,10 @@ class ExportMedicines extends Controller {
     public function getExported(Request $request) {
         $fromDate = date($request->input('fromDate'));
         $toDate = date($request->input('toDate'));
-        $exported = ExportMedicine::whereBetween('created_at',  [$fromDate, $toDate])->groupBy('medicine_id')
-->selectRaw('sum(amount) as total_export , medicine_id')
-->get();
+//         $exported = ExportMedicine::whereBetween('created_at',  [$fromDate, $toDate])->groupBy('medicine_id')
+// ->selectRaw('sum(amount) as total_export , medicine_id')
+// ->get();
+        $exported = ExportMedicine::whereBetween('created_at',  [$fromDate, $toDate])->get();
         if(count($exported) > 0){
         	foreach ($exported as $key => $value) {
         		$medicine = Medicine::with('TypeMedicine', 'BehaviourMedicine', 'Unit', 'Drug', 'PatentMedicine')->find($value['medicine_id']);

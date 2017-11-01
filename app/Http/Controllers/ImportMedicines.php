@@ -40,8 +40,10 @@ class ImportMedicines extends Controller {
     public function getImported(Request $request) {
         $fromDate = date($request->input('fromDate'));
         $toDate = date($request->input('toDate'));
-        $imported = ImportMedicine::whereBetween('created_at',  [$fromDate, $toDate])->groupBy('medicine_id')
-->selectRaw('sum(amount) as total_import , medicine_id')
+//         $imported = ImportMedicine::whereBetween('created_at',  [$fromDate, $toDate])->groupBy('medicine_id')
+// ->selectRaw('sum(amount) as total_import , medicine_id')
+// ->get();
+$imported = ImportMedicine::whereBetween('created_at',  [$fromDate, $toDate])
 ->get();
         if(count($imported) > 0){
         	foreach ($imported as $key => $value) {
