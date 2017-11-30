@@ -185,7 +185,7 @@ class Bills extends Controller
         }else if($value->number == 0.60){
           $amount = ceil($timesperAll/(3/2));
         }else{
-          $amount = $timesperAll*$timesperAll;
+          $amount = ceil($timesperAll*$value->number);
         }
         
         $moneyDrug += $value->price * $amount;
