@@ -14,7 +14,7 @@ class Diagnosises extends Controller
     //
     public function index($id = null) {
         if ($id == null) {
-            $diagnosises = Diagnosis::orderBy('id', 'asc')->get();
+            $diagnosises = Diagnosis::orderBy('name', 'asc')->get();
             if(count($diagnosises) > 0){
               return response()->json([
                   'message' => 'Diagnosis was found',

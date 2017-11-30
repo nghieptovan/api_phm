@@ -178,7 +178,16 @@ class Bills extends Controller
       $details = BillDetail::where('bill_id', $id)->get();
       $moneyDrug = 0;
       foreach ($details as $key => $value) {
-        $amount = $value->number * $value->daycount * $value->timesperday;
+        $timesperAll = $value->daycount * $value->timesperday;
+        $amount = 0;
+        if($value->number == 0.30){
+          $amount = ceil($timesperAll/3);
+        }else if($value->number == 0.60){
+          $amount = ceil($timesperAll/(3/2));
+        }else{
+          $amount = $timesperAll*$timesperAll;
+        }
+        
         $moneyDrug += $value->price * $amount;
       }
       return $moneyDrug;
