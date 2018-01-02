@@ -242,8 +242,13 @@ class Bills extends Controller
         
         $bill = new Bill;
         $bill->patient_id = $request->input('patient_id');
-        $bill->enclitic_id = $request->input('enclitic_id');        
-        $bill->billdate = date("d/m/Y h:i:s");        
+        $bill->enclitic_id = $request->input('enclitic_id');  
+
+        if(isset($request->billdate)){
+          $bill->billdate = $request->input('billdate');
+        }else{
+          $bill->billdate =  date("d/m/Y"); 
+        }            
 
         if(isset($request->symptom)){
           $bill->symptom = $request->input('symptom');
