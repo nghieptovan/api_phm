@@ -10,7 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+Route::get('breweries', ['middleware' => 'cors', function()
+{
+    return \Response::json(\App\Brewery::with('beers', 'geocode')->paginate(10), 200);
+}]);
 Route::get('/', function () {
     return view('welcome');
 });
